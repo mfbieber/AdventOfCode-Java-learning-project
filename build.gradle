@@ -54,7 +54,7 @@ bootJar {
     }
 }
 
-group 'org.basseur'
+group 'org.haffson'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
