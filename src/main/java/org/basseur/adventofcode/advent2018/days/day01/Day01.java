@@ -13,16 +13,9 @@ import java.util.Set;
 
 /**
  * Implementation for <i>Day 1: Chronal Calibration</i>.
- *
- * @author Jan Philipp G&ouml;lz
  */
 @Component
 public class Day01 implements Days {
-
-    /** The location of the puzzle input file */
-    private static final String FILE_LOCATION = "/puzzleInputs/Input01.txt";
-    /** An array containing all the frequencies */
-    private final Integer[] frequencies;
 
     /** The puzzle status {@code HashMap} */
     private final HashMap<String, ProblemStatusEnum> problemStatus;
@@ -30,15 +23,13 @@ public class Day01 implements Days {
     /**
      * Causes the input file to be parsed into the frequencies array ({@code frequencies}).
      *
-     * @param fileReaders {@code @Autowired} fileReader
+     * @param fileReaders {@code @Autowired} fileReader //TODO: inject what you need
      */
     @Autowired
     Day01(FileReaders fileReaders) {
         this.problemStatus = new HashMap<>();
-        this.problemStatus.put("1", ProblemStatusEnum.SOLVED);
-        this.problemStatus.put("2", ProblemStatusEnum.SOLVED);
-
-        this.frequencies = fileReaders.readFileIntoArrayOfIntegers(FILE_LOCATION);
+        this.problemStatus.put("1", ProblemStatusEnum.UNSOLVED);
+        this.problemStatus.put("2", ProblemStatusEnum.UNSOLVED);
     }
 
     @Override
@@ -58,7 +49,7 @@ public class Day01 implements Days {
 
     @Override
     public String secondPart() {
-        return "Part 2 - Frequency reached twice: " + calculateDoubleFrequency();
+        return null;
     }
 
     /**
@@ -68,27 +59,6 @@ public class Day01 implements Days {
      * @return the final frequency
      */
     private int calculateFrequency() {
-        return Arrays.stream(frequencies).mapToInt(a -> a).sum();
-    }
-
-    /**
-     * Primary method for Day 1, Part 2.
-     * Finds and returns the first frequency reached twice.
-     *
-     * @return the first frequency found twice
-     */
-    private int calculateDoubleFrequency() {
-        Set<Integer> uniqueFrequencies = new HashSet<>();
-        int frequency = 0;
-
-        for (int i = 0; true; i++) {
-            if (!uniqueFrequencies.add(frequency)) {
-                return frequency;
-            }
-            if (i == (frequencies.length)) {
-                i = 0;
-            }
-            frequency += frequencies[i];
-        }
+        return 0;
     }
 }

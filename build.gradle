@@ -116,24 +116,26 @@ tasks.withType(Test) {
     }
 }
 
-task npmRunScriptBuild( type: NpmTask, dependsOn: 'npmTest' ) {
-    args = ['run-script', 'build:jar']
-    execOverrides {
-        it.workingDir = 'frontend'
+if(Boolean.valueOf(System.getenv("FE_BUILD"))) {
+    task npmRunScriptBuild(type: NpmTask, dependsOn: 'npmTest') {
+        args = ['run-script', 'build:jar']
+        execOverrides {
+            it.workingDir = 'frontend'
+        }
     }
-}
 
-task npmTest( type: NpmTask, dependsOn: 'npmInstall') {
-    args = ['test']
-}
+    task npmTest(type: NpmTask, dependsOn: 'npmInstall') {
+        args = ['test']
+    }
 
-npmSetup.dependsOn nodeSetup
-npmInstall.dependsOn npmSetup
-npmTest.dependsOn npmInstall
-npmRunScriptBuild.dependsOn npmTest
+    npmSetup.dependsOn nodeSetup
+    npmInstall.dependsOn npmSetup
+    npmTest.dependsOn npmInstall
+    npmRunScriptBuild.dependsOn npmTest
 
 /** processResources is part of the jar task and copies production resources into the production
  *  resources directory. This should only happen after then npmRunScriptBuild has generated those
  *  resources.
  */
-processResources.dependsOn npmRunScriptBuild
+    processResources.dependsOn npmRunScriptBuild
+}

@@ -49,7 +49,7 @@ describe("App", () => {
     expect(component.childAt(0).name()).to.equal(
       "WithStyles(PrimarySearchAppBar)"
     );
-    expect(component.childAt(1).name()).to.equal("WithStyles(Grid)");
+    expect(component.childAt(1).name()).to.equal("WithStyles(ForwardRef(Grid))");
 
     expect(
       component
