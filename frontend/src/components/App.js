@@ -27,12 +27,6 @@ class App extends Component {
     this.state = {
       part: "",
       solved: {
-        1: { day: "1", part: "1", result: "Part 1 - Frequency: 599" },
-        2: {
-          day: "1",
-          part: "2",
-          result: "Part 2 - Frequency reached twice: 81204"
-        }
       }
     };
     this.setPuzzleResult = this.setPuzzleResult.bind(this);
