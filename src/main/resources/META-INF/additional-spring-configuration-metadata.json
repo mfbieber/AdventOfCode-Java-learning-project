@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "day1.file",
+      "type": "java.lang.String",
+      "description": "Path to the puzzle file of day 1."
+  }
+] }
