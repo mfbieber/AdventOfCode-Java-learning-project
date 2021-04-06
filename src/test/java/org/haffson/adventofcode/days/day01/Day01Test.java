@@ -4,18 +4,24 @@ import org.haffson.adventofcode.utils.FileReaders;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+
 @RunWith(SpringRunner.class)
+@SpringBootTest
 public class Day01Test {
 
-    @MockBean
+    @Autowired
     private FileReaders fileReaders;
 
-    @Test
+    @Value("${day1.file}")
+    private String filePath;
+
     public void testGetDay() {
-        Day01 day01 = new Day01(fileReaders);
+        Day01 day01 = new Day01(fileReaders, filePath);
         int expectedResult = 1;
         int actualResult = day01.getDay();
         Assert.assertEquals(expectedResult, actualResult);
@@ -23,16 +29,9 @@ public class Day01Test {
 
     @Test
     public void test_firstPart_returnsExpectedResult() {
-        //arrange
-        Day01 day01 = new Day01(fileReaders);
-
-        String expectedResult = "Part 1 - Frequency: " + 0;
-
-        //act
+        Day01 day01 = new Day01(fileReaders, filePath);
+        String expectedResult = "Part 1: " + 514579;
         String actualResult = day01.firstPart();
-
-        //assert
         Assert.assertEquals(expectedResult, actualResult);
     }
-
 }
