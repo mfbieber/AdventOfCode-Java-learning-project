@@ -28,10 +28,20 @@ public class Day01Test {
     }
 
     @Test
-    public void test_firstPart_returnsExpectedResult() {
+    public void testFirstPartReturnsExpectedResult() {
         Day01 day01 = new Day01(fileReaders, filePath);
         String expectedResult = "Part 1: " + 514579;
         String actualResult = day01.firstPart();
         Assert.assertEquals(expectedResult, actualResult);
     }
+
+
+    @Test
+    public void testSecondPartReturnsExpectedResult() {
+        Day01 day01 = new Day01(fileReaders, filePath);
+        String expectedResult = "Part 2: " + 241861950;
+        String actualResult = day01.secondPart();
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
 }

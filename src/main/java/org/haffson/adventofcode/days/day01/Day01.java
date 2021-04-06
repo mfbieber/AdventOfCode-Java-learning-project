@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -23,8 +24,8 @@ public class Day01 implements Days {
     @Autowired
     Day01(FileReaders fileReaders, @Value("${day1.file}") String filePath) {
         this.problemStatus = new HashMap<>();
-        this.problemStatus.put("1", ProblemStatusEnum.UNSOLVED);
-        this.problemStatus.put("2", ProblemStatusEnum.UNSOLVED);
+        this.problemStatus.put("1", ProblemStatusEnum.SOLVED);
+        this.problemStatus.put("2", ProblemStatusEnum.SOLVED);
         this.numbers = fileReaders.readFileIntoArrayOfIntegers(filePath);
     }
 
@@ -40,32 +41,94 @@ public class Day01 implements Days {
 
     @Override
     public String firstPart() {
-        return "Part 1: " + calculateReport();
+        return "Part 1: " + calculatePart1();
     }
 
     @Override
     public String secondPart() {
-        return null;
+        return "Part 2: " + calculatePart2();
     }
 
     /**
      * Primary method for Day 1, Part 1.
      * Calculates the Report
      *
-     * @return Returns the product of the multiplication of the numbers that add up to 2020.
+     * @return Returns the product of the multiplication of two numbers that add up to 2020.
      */
-    private int calculateReport() {
-        int sum;
-        int report = 0;
-        for(int i = 0; i < this.numbers.length - 1; i++){
-            for(int j = 1; j < this.numbers.length - 1; j++){
-                sum = numbers[i] + numbers[j];
-                if(sum == 2020){
-                    report = numbers[i] * numbers[j];
-                    break;
+    private int calculatePart1() {
+        int[] entries = this.findTwoEntriesThatSumToX(this.numbers, 2020);
+        return multiplyListEntries(entries);
+    }
+
+
+    /**
+     * Primary method for Day 1, Part 2.
+     * Calculates the Report
+     *
+     * @return Returns the product of the multiplication of three numbers that add up to 2020.
+     */
+    private int calculatePart2() {
+        int[] entries = this.findThreeEntriesThatSumToX(this.numbers, 2020);
+        return multiplyListEntries(entries);
+    }
+
+    /***
+     * This helper function calculates the product of all list entries.
+     *
+     * @param values values
+     * @return Returns the product of all list entries.
+     */
+    private int multiplyListEntries(int[] values) {
+        int result = 1;
+        for (int value : values) {
+            result = result * value;
+        }
+        return result;
+    }
+
+    /***
+     * This helper function is used to find two list entries that add up to the value x.
+     *
+     * @param values values
+     * @param x sum of the two list entries
+     * @return Returns the list entries witch add up to x.
+     */
+    private int[] findTwoEntriesThatSumToX(int[] values, int x) {
+        int[] entries = null;
+        outer:
+        for (int i = 0; i < values.length - 1; i++) {
+            for (int j = i + 1; j < values.length - 1; j++) {
+                if (values[i] + values[j] == x) {
+                    entries = new int[]{values[i], values[j]};
+                    break outer;
                 }
             }
         }
-        return report;
+        return entries;
     }
+
+
+    /***
+     * This helper function is used to find three list entries that add up to the value x.
+     *
+     * @param values values
+     * @param x sum of the three list entries
+     * @return Returns the list entries witch add up to x.
+     */
+    private int[] findThreeEntriesThatSumToX(int[] values, int x) {
+        int[] entries = null;
+        outer:
+        for (int i = 0; i < values.length - 3; i++) {
+            for (int j = i + 1; j < values.length - 2; j++) {
+                for (int k = j + 1; k < values.length - 1; k++) {
+                    if (values[i] + values[j] + values[k] == x) {
+                        entries = new int[]{values[i], values[j], values[k]};
+                        break outer;
+                    }
+                }
+            }
+        }
+        return entries;
+    }
+
 }
