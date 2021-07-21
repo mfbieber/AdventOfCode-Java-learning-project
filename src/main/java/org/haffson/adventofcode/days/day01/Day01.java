@@ -93,6 +93,8 @@ public class Day01 implements Days {
             data2.add(2020 - data1.get(j));
         }
 
+        System.out.println("hahahha");
+
 //        data.stream().map(a -> 2020-a).collect(Collectors.toList());
 
         // check for intersection of two arraylists
