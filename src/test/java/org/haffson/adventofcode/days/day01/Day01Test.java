@@ -26,7 +26,7 @@ public class Day01Test {
         //arrange
         Day01 day01 = new Day01(fileReaders);
 
-        String expectedResult = "Part 1 - Frequency: " + 0;
+        String expectedResult = "Product 1: " + 326211;
 
         //act
         String actualResult = day01.firstPart();
