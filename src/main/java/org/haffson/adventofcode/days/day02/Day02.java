@@ -48,7 +48,7 @@ public class Day02 implements Days {
         try {
             return "Part 1 answer: " + getNumberPwd1();
         } catch (FileNotFoundException e) {
-            return "Error in method 1";
+            return "Error in method 1: " + e.getMessage();
         }
     }
 
@@ -57,24 +57,22 @@ public class Day02 implements Days {
         try {
             return "Part 2 answer: " + getNumberPwd2();
         } catch (FileNotFoundException e) {
-            return "Error in method 2";
+            return "Error in method 2: " + e.getMessage();
         }
     }
 
 
-    /** Method to read raw data from file into list
-     *
+    /** 
+     * Method to read raw data from file into list
      * @return raw data as list
      */
     public List<String> getRawDataAsList(String path) {
         List<String> rawData = new ArrayList<>();
 
-        try {
-            Scanner s = new Scanner(new File(path)).useDelimiter("\n");
+       try (Scanner s = new Scanner(new File(path)).useDelimiter("\n")){
             while (s.hasNext()) {
                 rawData.add(s.next());
             }
-            s.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
         }
@@ -86,10 +84,10 @@ public class Day02 implements Days {
      * First, create class Data to avoid having multiple return values
      */
     public static class Data {
-        int min;
-        int max;
-        String letter;
-        String pwd;
+        private final int min;
+        private final int max;
+        private final String letter;
+        private final String pwd;
 
         public Data(int min, int max, String letter, String pwd) {
             this.min = min;
@@ -103,9 +101,7 @@ public class Day02 implements Days {
 
         List<Data> dataArrayList = new ArrayList<>();
 
-        for (int i = 0; i < rawData.size(); i++) {
-
-            String line = rawData.get(i);
+        for (String line : rawData) {
 
             // match patterns to determine min and max number of the letter in pwd, the searched letter and pwd itself
             String pattern = "(\\d+)-(\\d+)\\s+(\\w):\\s+(\\w*)";
@@ -134,15 +130,15 @@ public class Day02 implements Days {
         int countCorrPwd = 0; // answer to puzzle day 2.1: number of correct passwords in list
 
         // loop through passwords
-        for (int i=0; i < data.size(); i++ ) {
+        for (Data datum : data) {
             int count = 0;  // number of letter appearance in pwd
 
             // count how often specific letter appears in pwd
-            for (int j = 0; j < data.get(i).pwd.length(); j++) {
-                if (data.get(i).pwd.charAt(j) == data.get(i).letter.charAt(0)) count++;
+            for (int j = 0; j < datum.pwd.length(); j++) {
+                if (datum.pwd.charAt(j) == datum.letter.charAt(0)) count++;
             }
-             // check if count meets criteria for correct pwd
-            if (count >= data.get(i).min && count <= data.get(i).max) {
+            // check if count meets criteria for correct pwd
+            if (count >= datum.min && count <= datum.max) {
                 countCorrPwd++;
             }
         }
@@ -161,10 +157,10 @@ public class Day02 implements Days {
         int countCorrPwd = 0; // answer to puzzle day 2.2: number of correct passwords in list
 
         // loop through passwords
-        for (int i=0; i < data.size(); i++ ) {
+        for (Data datum : data) {
 
-            boolean onlyFirstPosition = data.get(i).pwd.charAt(data.get(i).min - 1) == data.get(i).letter.charAt(0) && data.get(i).pwd.charAt(data.get(i).max - 1) != data.get(i).letter.charAt(0);
-            boolean onlySecondPosition = data.get(i).pwd.charAt(data.get(i).max - 1) == data.get(i).letter.charAt(0) && data.get(i).pwd.charAt(data.get(i).min - 1) != data.get(i).letter.charAt(0);
+            boolean onlyFirstPosition = datum.pwd.charAt(datum.min - 1) == datum.letter.charAt(0) && datum.pwd.charAt(datum.max - 1) != datum.letter.charAt(0);
+            boolean onlySecondPosition = datum.pwd.charAt(datum.max - 1) == datum.letter.charAt(0) && datum.pwd.charAt(datum.min - 1) != datum.letter.charAt(0);
 
             // letter must appear only once (either only(!) at first or only(!) at second position)
             if ((onlyFirstPosition && !onlySecondPosition) || (!onlyFirstPosition && onlySecondPosition)) {
