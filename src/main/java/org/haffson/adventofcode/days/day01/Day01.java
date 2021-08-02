@@ -31,7 +31,7 @@ public class Day01 implements Days {
     Day01(FileReaders fileReaders) {
         this.problemStatus = new HashMap<>();
         this.problemStatus.put("1", ProblemStatusEnum.SOLVED);
-        this.problemStatus.put("2", ProblemStatusEnum.UNSOLVED);
+        this.problemStatus.put("2", ProblemStatusEnum.SOLVED);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Day01 implements Days {
     @Override
     public String firstPart() {
         try {
-            return "" + calculateNumber();
+            return "Product 1: " + calculateNumber1();
         } catch (FileNotFoundException e) {
             return "error";
         }
@@ -55,22 +55,24 @@ public class Day01 implements Days {
 
     @Override
     public String secondPart() {
-        return null;
+        try {
+            return "Product 2: " + calculateNumber2();
+        } catch (FileNotFoundException e) {
+            return "error";
+        }
     }
 
     /**
      * Primary method for Day 1, Part 1.
-     * Calculates the final frequency as the sum of all frequencies.
+     * Calculates the product of two specific numbers from a list
      *
      * @return the final frequency
      */
-//    private int calculateFrequency() {
-//        return 0;
-//    }
-    private int calculateNumber() throws FileNotFoundException {
+
+
+    private int calculateNumber1() throws FileNotFoundException {
 
         // read data file
-
         Scanner s = new Scanner(new File("/Users/jenni/dedica/AdventOfCode/Jenni/Day01/src/input.txt"));
         ArrayList<Integer> data = new ArrayList<Integer>();
 
@@ -80,28 +82,58 @@ public class Day01 implements Days {
         }
         s.close();
 
+        // create arraylist that is subtracted by 2020
+        ArrayList<Integer> data2 = new ArrayList<Integer>();
 
-        // DAY 1 PUZZLE 1:
+        for (int j = 0; j < data.size(); j++) {
+            data2.add(2020 - data.get(j));
+        }
 
-        // clone data list
-        ArrayList<Integer> data1 = (ArrayList<Integer>) data.clone();
+        // check for intersection of two arraylists
+        ArrayList<Integer> test = new ArrayList<Integer>();
+        data.retainAll(data2);
+
+        // multiplication of "intersected" values is the puzzle's answer!
+        System.out.println("The answer of Puzzle Day 1.1 is: " + data.get(0) * data.get(1));
+        return data.get(0) * data.get(1);
+    }
+
+    private int calculateNumber2() throws FileNotFoundException {
+
+        // read data file
+        Scanner s = new Scanner(new File("/Users/jenni/dedica/AdventOfCode/Jenni/Day01/src/input.txt"));
+        ArrayList<Integer> data = new ArrayList<Integer>();
+
+        while (s.hasNext()) {
+            int i = Integer.parseInt(s.next());
+            data.add(i);
+        }
+        s.close();
 
         // create arraylist that is subtracted by 2020
         ArrayList<Integer> data2 = new ArrayList<Integer>();
 
         for (int j = 0; j < data.size(); j++) {
-            data2.add(2020 - data1.get(j));
+            data2.add(2020 - data.get(j));
         }
 
-//        data.stream().map(a -> 2020-a).collect(Collectors.toList());
+        ArrayList<Integer> data3 = new ArrayList<Integer>();
 
-        // check for intersection of two arraylists
-        ArrayList<Integer> test = new ArrayList<Integer>();
-        data1.retainAll(data2);
+        for (int k=0; k<data.size();k++) {
+            for (int l=0; l<data.size(); l++){
+                data3.add(data.get(k) + data.get(l));
+
+            }
+        }
+
+        data2.retainAll(data3);
 
         // multiplication of "intersected" values is the puzzle's answer!
-        System.out.println("The answer of Puzzle Day 1.1 is: " + data1.get(0) * data1.get(1));
-        return data1.get(0) * data1.get(1);
-    }
+        System.out.println("The answer of Puzzle Day 1.2 is: " + (2020-data2.get(0))*(2020-data2.get(1))*(2020-data2.get(2)));
+
+        return (2020-data2.get(0))*(2020-data2.get(1))*(2020-data2.get(2));
 
     }
+
+
+}
