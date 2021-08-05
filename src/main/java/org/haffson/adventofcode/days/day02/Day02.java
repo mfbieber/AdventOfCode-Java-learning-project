@@ -1,17 +1,17 @@
 package org.haffson.adventofcode.days.day02;
 
+import org.apache.commons.lang3.StringUtils;
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
-
+import java.io.IOException;
+import java.util.*;
 
 
 /**
@@ -20,8 +20,19 @@ import java.util.Scanner;
 @Component
 public class Day02 implements Days {
 
-    private final String path = "/Users/jenni/dedica/AdventOfCode/Jenni/Day02/src/input.txt";
-    private List<String> rawData = getRawDataAsList(path);
+    // Read content of input file
+    File resource;
+    {
+        try {
+            resource = new ClassPathResource(
+                    "data/input_day02.txt").getFile();
+        } catch (IOException e) {
+            System.out.println("Raw Data (Input) file not found: " + e.getMessage());
+        }
+    }
+
+//    private final String path = "/Users/jenni/dedica/AdventOfCode/Jenni/Day02/src/input.txt";
+    private List<String> rawData = getRawDataAsList(resource);
 
     /** The puzzle status {@code HashMap} */
     private final HashMap<String, ProblemStatusEnum> problemStatus;
@@ -62,14 +73,14 @@ public class Day02 implements Days {
     }
 
 
-    /** 
+    /**
      * Method to read raw data from file into list
      * @return raw data as list
      */
-    public List<String> getRawDataAsList(String path) {
+    public List<String> getRawDataAsList(File file) {
         List<String> rawData = new ArrayList<>();
 
-       try (Scanner s = new Scanner(new File(path)).useDelimiter("\n")){
+       try (Scanner s = new Scanner(new File(String.valueOf(file.toPath()))).useDelimiter("\n")){
             while (s.hasNext()) {
                 rawData.add(s.next());
             }
@@ -87,13 +98,24 @@ public class Day02 implements Days {
         private final int min;
         private final int max;
         private final String letter;
-        private final String pwd;
+        private final String password;
 
-        public Data(int min, int max, String letter, String pwd) {
+        public Data(int min, int max, @NonNull String letter, @NonNull String password) {
+
             this.min = min;
             this.max = max;
-            this.letter = letter;
-            this.pwd = pwd;
+            this.letter = requireNonNullAndNonEmpty(letter);
+            this.password = requireNonNullAndNonEmpty(password);
+
+        }
+
+    }
+
+    public static String requireNonNullAndNonEmpty(String string){
+        if (StringUtils.isEmpty(string)){
+            throw new NullPointerException("The string is null or empty");
+        } else {
+            return string;
         }
     }
 
@@ -102,15 +124,15 @@ public class Day02 implements Days {
         List<Data> dataArrayList = new ArrayList<>();
 
         for (String line : rawData) {
-
-            // match patterns to determine min and max number of the letter in pwd, the searched letter and pwd itself
+            // match patterns to determine min and max number of the letter in password,
+            // the searched letter and password itself
             String pattern = "(\\d+)-(\\d+)\\s+(\\w):\\s+(\\w*)";
             int min = Integer.parseInt(line.replaceAll(pattern, "$1"));
             int max = Integer.parseInt(line.replaceAll(pattern, "$2"));
             String letter = line.replaceAll(pattern, "$3");
-            String pwd = line.replaceAll(pattern, "$4");
+            String password = line.replaceAll(pattern, "$4");
 
-            dataArrayList.add(new Data(min, max, letter, pwd));
+            dataArrayList.add(new Data(min, max, letter, password));
         }
         return dataArrayList;
     }
@@ -120,24 +142,23 @@ public class Day02 implements Days {
      * Primary method for Day 1, Part 1.
      * Gets the number of correct passwords from a list
      *
-     * @return the number of correct pwds in list
+     * @return the number of correct passwords in list
      */
 
     private int getNumberPwd1() throws FileNotFoundException {
         // get data
         List<Data> data = getData(rawData);
-
         int countCorrPwd = 0; // answer to puzzle day 2.1: number of correct passwords in list
 
         // loop through passwords
         for (Data datum : data) {
-            int count = 0;  // number of letter appearance in pwd
+            int count = 0;  // number of letter appearance in password
 
             // count how often specific letter appears in pwd
-            for (int j = 0; j < datum.pwd.length(); j++) {
-                if (datum.pwd.charAt(j) == datum.letter.charAt(0)) count++;
+            for (int j = 0; j < datum.password.length(); j++){
+                if (datum.password.charAt(j) == datum.letter.charAt(0)) count++;
             }
-            // check if count meets criteria for correct pwd
+            // check if count meets criteria for correct password
             if (count >= datum.min && count <= datum.max) {
                 countCorrPwd++;
             }
@@ -159,8 +180,10 @@ public class Day02 implements Days {
         // loop through passwords
         for (Data datum : data) {
 
-            boolean onlyFirstPosition = datum.pwd.charAt(datum.min - 1) == datum.letter.charAt(0) && datum.pwd.charAt(datum.max - 1) != datum.letter.charAt(0);
-            boolean onlySecondPosition = datum.pwd.charAt(datum.max - 1) == datum.letter.charAt(0) && datum.pwd.charAt(datum.min - 1) != datum.letter.charAt(0);
+            boolean onlyFirstPosition = datum.password.charAt(datum.min - 1) == datum.letter.charAt(0) &&
+                    datum.password.charAt(datum.max - 1) != datum.letter.charAt(0);
+            boolean onlySecondPosition = datum.password.charAt(datum.max - 1) == datum.letter.charAt(0) &&
+                    datum.password.charAt(datum.min - 1) != datum.letter.charAt(0);
 
             // letter must appear only once (either only(!) at first or only(!) at second position)
             if ((onlyFirstPosition && !onlySecondPosition) || (!onlyFirstPosition && onlySecondPosition)) {
