@@ -1,12 +1,7 @@
 package org.haffson.adventofcode.days.day02;
 
-import org.haffson.adventofcode.utils.FileReaders;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +46,6 @@ public class Day02Test {
 
         //arrange
         Day02 day02 = new Day02();
-
         String expectedResult = "Part 1 answer: " + 607;
 
         //act
