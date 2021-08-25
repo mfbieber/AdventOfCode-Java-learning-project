@@ -2,7 +2,6 @@ package org.haffson.adventofcode.days.day01;
 
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
-import org.haffson.adventofcode.utils.FileReaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -95,7 +94,7 @@ public class Day01 implements Days {
     private int calculateNumber2() throws FileNotFoundException {
 
         // read data file
-        Scanner s = new Scanner(new File("/Users/jenni/dedica/AdventOfCode/Jenni/Day01/src/input.txt"));
+        Scanner s = new Scanner(new File("/Users/jenni/dedica/AdventOfCode/AdventOfCode-Java-learning-project/src/main/resources/data/day01/input_day01.txt"));
         ArrayList<Integer> data = new ArrayList<Integer>();
 
         while (s.hasNext()) {
