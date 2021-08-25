@@ -3,12 +3,15 @@ package org.haffson.adventofcode.days.day01;
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -19,6 +22,19 @@ public class Day01 implements Days {
 
     /** The puzzle status {@code HashMap} */
     private final HashMap<String, ProblemStatusEnum> problemStatus;
+
+    // Read content of input file (real data)
+    public File resource;
+    {
+        try {
+            resource = new ClassPathResource(
+                    "data/day01/input_day01.txt").getFile();
+        } catch (IOException e) {
+            System.out.println("Raw Data (Input) file not found: " + e.getMessage());
+        }
+    }
+
+
 
     @Autowired
     Day01() {
@@ -39,11 +55,7 @@ public class Day01 implements Days {
 
     @Override
     public String firstPart() {
-        try {
-            return "Product 1: " + calculateNumber1();
-        } catch (FileNotFoundException e) {
-            return "error";
-        }
+        return "Product 1: " + calculateNumber1(getRawData(resource));
     }
 
     @Override
@@ -63,23 +75,48 @@ public class Day01 implements Days {
      */
 
 
-    private int calculateNumber1() throws FileNotFoundException {
+    // read raw data and transform it to String[]
+    public Integer[] getRawData(File resource) {
+        List<String> rawData = new ArrayList<>();
+        try (Scanner s = new Scanner(new File(String.valueOf(resource.toPath()))).useDelimiter("\n")){
+            while (s.hasNext()) {
+                rawData.add(s.next());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!" + e.getMessage());
+        }
+        Integer[] rawData_array = new Integer[rawData.size()];
+        for(int i = 0; i < rawData.size(); i++) rawData_array[i] = Integer.parseInt(rawData.get(i));
 
-        // read data file
-        Scanner s = new Scanner(new File("/Users/jenni/dedica/AdventOfCode/AdventOfCode-Java-learning-project/src/main/resources/data/day01/input_day01.txt"));
-        ArrayList<Integer> data = new ArrayList<Integer>();
+        return rawData_array;
+    }
 
-        while (s.hasNext()) {
-            int i = Integer.parseInt(s.next());
+
+
+    private int calculateNumber1(Integer[] rawData_array){
+
+//        // read data file
+//        Scanner s = new Scanner(new File("/Users/jenni/dedica/AdventOfCode/AdventOfCode-Java-learning-project/src/main/resources/data/day01/input_day01.txt"));
+//        ArrayList<Integer> data = new ArrayList<Integer>();
+//
+//        while (s.hasNext()) {
+//            int i = Integer.parseInt(s.next());
+//            data.add(i);
+//        }
+//        s.close();
+
+
+        List<Integer> data = new ArrayList<>(rawData_array.length);
+        for (int i : rawData_array)
+        {
             data.add(i);
         }
-        s.close();
 
         // create arraylist that is subtracted by 2020
-        ArrayList<Integer> data2 = new ArrayList<Integer>();
+        ArrayList<Integer> data2 = new ArrayList<>();
 
-        for (int j = 0; j < data.size(); j++) {
-            data2.add(2020 - data.get(j));
+        for (Integer datum : data) {
+            data2.add(2020 - datum);
         }
 
         // check for intersection of two arraylists
