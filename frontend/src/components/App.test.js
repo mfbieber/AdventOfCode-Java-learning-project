@@ -56,7 +56,7 @@ describe("App", () => {
         .childAt(1)
         .children()
         .getElements().length
-    ).to.equal(3);
+    ).to.equal(1);
 
     expect(
       component
