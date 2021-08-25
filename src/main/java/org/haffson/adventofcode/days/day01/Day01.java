@@ -119,7 +119,7 @@ public class Day01 implements Days {
         data.retainAll(data2);
 
         // multiplication of "intersected" values is the puzzle's answer!
-        System.out.println("The answer of Puzzle Day 1.1 is: " + data.get(0) * data.get(1));
+//        System.out.println("The answer of Puzzle Day 1.1 is: " + data.get(0) * data.get(1));
         return data.get(0) * data.get(1);
     }
 
@@ -154,7 +154,7 @@ public class Day01 implements Days {
         data2.retainAll(data3);
 
         // multiplication of "intersected" values is the puzzle's answer!
-        System.out.println("The answer of Puzzle Day 1.2 is: " + (2020-data2.get(0))*(2020-data2.get(1))*(2020-data2.get(2)));
+//        System.out.println("The answer of Puzzle Day 1.2 is: " + (2020-data2.get(0))*(2020-data2.get(1))*(2020-data2.get(2)));
 
         return (2020-data2.get(0))*(2020-data2.get(1))*(2020-data2.get(2));
 
