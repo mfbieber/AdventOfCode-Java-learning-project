@@ -25,7 +25,7 @@ public class Day02 implements Days {
     {
         try {
             resource = new ClassPathResource(
-                    "data/input_day02.txt").getFile();
+                    "data/day02/input_day02.txt").getFile();
         } catch (IOException e) {
             System.out.println("Raw Data (Input) file not found: " + e.getMessage());
         }

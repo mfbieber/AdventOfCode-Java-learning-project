@@ -81,4 +81,21 @@ public class AdventOfCodeController {
                 linkTo(methodOn(AdventOfCodeController.class).daysImplemented()).withSelfRel()
         );
     }
+
+        @GetMapping("/test")
+        public String test () {
+
+            logger.info("A list of implemented days has been requested.");
+
+            return "Hallo";
+        }
+
+    @GetMapping("/test11")
+    public String test11 () {
+
+        logger.info("A list of implemented days has been requested.");
+
+        return "Hallo11";
+    }
+
 }

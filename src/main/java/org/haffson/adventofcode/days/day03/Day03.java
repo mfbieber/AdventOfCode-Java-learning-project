@@ -25,7 +25,7 @@ private final HashMap<String, ProblemStatusEnum> problemStatus;
     {
         try {
             resource = new ClassPathResource(
-                    "data/input_day03.txt").getFile();
+                    "data/day03/input_day03.txt").getFile();
         } catch (IOException e) {
             System.out.println("Raw Data (Input) file not found: " + e.getMessage());
         }
