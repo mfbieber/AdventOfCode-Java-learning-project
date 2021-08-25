@@ -2,6 +2,8 @@ package org.haffson.adventofcode.days.day04;
 
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.*;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,9 @@ public class Day04 implements Days {
      */
     private final HashMap<String, ProblemStatusEnum> problemStatus;
 
+    // Adds a logger
+    private static final Logger logger = LoggerFactory.getLogger(Day04.class);
+
     // Read content of test file (puzzle part 1)
     public File testResource;
     {
@@ -29,7 +34,7 @@ public class Day04 implements Days {
             testResource = new ClassPathResource(
                     "data/day04/day04_testdata.txt").getFile();
         } catch (IOException e) {
-            System.out.println("Raw Data (Input) file not found: " + e.getMessage());
+            logger.error("Raw Data (Input) file not found: " + e.getMessage());
         }
     }
 
@@ -40,7 +45,7 @@ public class Day04 implements Days {
             testResource2 = new ClassPathResource(
                     "data/day04/day04_testdata2.txt").getFile();
         } catch (IOException e) {
-            System.out.println("Raw Data (Input) file not found: " + e.getMessage());
+            logger.error("Raw Data (Input) file not found: " + e.getMessage());
         }
     }
 
@@ -51,7 +56,7 @@ public class Day04 implements Days {
             resource = new ClassPathResource(
                     "data/day04/input_day04.txt").getFile();
         } catch (IOException e) {
-            System.out.println("Raw Data (Input) file not found: " + e.getMessage());
+            logger.error("Raw Data (Input) file not found: " + e.getMessage());
         }
     }
 
@@ -94,7 +99,7 @@ public class Day04 implements Days {
                 rawData.add(s.next());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found!" + e.getMessage());
+            logger.error("File not found!" + e.getMessage());
         }
         String[] rawData_array = new String[rawData.size()];
         for(int i = 0; i < rawData.size(); i++) rawData_array[i] = rawData.get(i);
