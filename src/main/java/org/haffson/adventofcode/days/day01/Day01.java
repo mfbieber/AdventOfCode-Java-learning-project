@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 /**
  * Implementation for <i>Day 1: Chronal Calibration</i>.
@@ -73,7 +72,7 @@ public class Day01 implements Days {
     private int calculateNumber1() throws FileNotFoundException {
 
         // read data file
-        Scanner s = new Scanner(new File("/Users/jenni/dedica/AdventOfCode/Jenni/Day01/src/input.txt"));
+        Scanner s = new Scanner(new File("/Users/jenni/dedica/AdventOfCode/AdventOfCode-Java-learning-project/src/main/resources/data/day01/input_day01.txt"));
         ArrayList<Integer> data = new ArrayList<Integer>();
 
         while (s.hasNext()) {
