@@ -21,13 +21,8 @@ public class Day01 implements Days {
     /** The puzzle status {@code HashMap} */
     private final HashMap<String, ProblemStatusEnum> problemStatus;
 
-    /**
-     * Causes the input file to be parsed into the frequencies array ({@code frequencies}).
-     *
-     * @param fileReaders {@code @Autowired} fileReader //TODO: inject what you need
-     */
     @Autowired
-    Day01(FileReaders fileReaders) {
+    Day01() {
         this.problemStatus = new HashMap<>();
         this.problemStatus.put("1", ProblemStatusEnum.SOLVED);
         this.problemStatus.put("2", ProblemStatusEnum.SOLVED);
