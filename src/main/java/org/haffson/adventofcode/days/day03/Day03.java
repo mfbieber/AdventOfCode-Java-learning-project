@@ -2,6 +2,8 @@ package org.haffson.adventofcode.days.day03;
 
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.*;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,10 @@ public class Day03 implements Days {
 /** The puzzle status {@code HashMap} */
 private final HashMap<String, ProblemStatusEnum> problemStatus;
 
+    // Adds a logger
+    private static final Logger logger = LoggerFactory.getLogger(Day03.class);
+
+
     // Read content of input file
     File resource;
     {
@@ -27,9 +33,11 @@ private final HashMap<String, ProblemStatusEnum> problemStatus;
             resource = new ClassPathResource(
                     "data/day03/input_day03.txt").getFile();
         } catch (IOException e) {
-            System.out.println("Raw Data (Input) file not found: " + e.getMessage());
+            logger.error("Raw Data (Input) file not found: " + e.getMessage());
         }
     }
+
+
 
     private final String[] data = getRawDataAsArray(resource);
 
