@@ -23,7 +23,7 @@ public class Day04 implements Days {
     private final HashMap<String, ProblemStatusEnum> problemStatus;
 
     // Read content of test file (puzzle part 1)
-    File testResource;
+    public File testResource;
     {
         try {
             testResource = new ClassPathResource(
@@ -34,7 +34,7 @@ public class Day04 implements Days {
     }
 
     // Read content of test file (puzzle part 2)
-    File testResource2;
+    public File testResource2;
     {
         try {
             testResource2 = new ClassPathResource(
@@ -45,7 +45,7 @@ public class Day04 implements Days {
     }
 
     // Read content of input file (real data)
-    File resource;
+    public File resource;
     {
         try {
             resource = new ClassPathResource(
