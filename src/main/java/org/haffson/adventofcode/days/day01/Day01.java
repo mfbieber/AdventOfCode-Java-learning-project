@@ -2,6 +2,8 @@ package org.haffson.adventofcode.days.day01;
 
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,10 @@ public class Day01 implements Days {
     /** The puzzle status {@code HashMap} */
     private final HashMap<String, ProblemStatusEnum> problemStatus;
 
+    // Adds a logger
+    private static final Logger logger = LoggerFactory.getLogger(Day01.class);
+
+
     // Read content of input file (real data)
     public File resource;
     {
@@ -30,7 +36,7 @@ public class Day01 implements Days {
             resource = new ClassPathResource(
                     "data/day01/input_day01.txt").getFile();
         } catch (IOException e) {
-            System.out.println("Raw Data (Input) file not found: " + e.getMessage());
+            logger.error("Raw Data (Input) file not found: " + e.getMessage());
         }
     }
 
@@ -83,7 +89,7 @@ public class Day01 implements Days {
                 rawData.add(s.next());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found!" + e.getMessage());
+            logger.error("File not found!" + e.getMessage());
         }
         Integer[] rawData_array = new Integer[rawData.size()];
         for(int i = 0; i < rawData.size(); i++) rawData_array[i] = Integer.parseInt(rawData.get(i));
@@ -94,17 +100,6 @@ public class Day01 implements Days {
 
 
     private int calculateNumber1(Integer[] rawData_array){
-
-//        // read data file
-//        Scanner s = new Scanner(new File("/Users/jenni/dedica/AdventOfCode/AdventOfCode-Java-learning-project/src/main/resources/data/day01/input_day01.txt"));
-//        ArrayList<Integer> data = new ArrayList<Integer>();
-//
-//        while (s.hasNext()) {
-//            int i = Integer.parseInt(s.next());
-//            data.add(i);
-//        }
-//        s.close();
-
 
         List<Integer> data = new ArrayList<>(rawData_array.length);
         for (int i : rawData_array)

@@ -3,6 +3,8 @@ package org.haffson.adventofcode.days.day02;
 import org.apache.commons.lang3.StringUtils;
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.lang.NonNull;
@@ -20,6 +22,9 @@ import java.util.*;
 @Component
 public class Day02 implements Days {
 
+    // Adds a logger
+    private static final Logger logger = LoggerFactory.getLogger(Day02.class);
+
     // Read content of input file
     File resource;
     {
@@ -27,7 +32,7 @@ public class Day02 implements Days {
             resource = new ClassPathResource(
                     "data/day02/input_day02.txt").getFile();
         } catch (IOException e) {
-            System.out.println("Raw Data (Input) file not found: " + e.getMessage());
+            logger.error("Raw Data (Input) file not found: " + e.getMessage());
         }
     }
 
@@ -73,6 +78,8 @@ public class Day02 implements Days {
     }
 
 
+
+
     /**
      * Method to read raw data from file into list
      * @return raw data as list
@@ -85,7 +92,7 @@ public class Day02 implements Days {
                 rawData.add(s.next());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
+            logger.error("File not found!");
         }
         return rawData;
     }

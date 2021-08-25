@@ -92,7 +92,7 @@ private final HashMap<String, ProblemStatusEnum> problemStatus;
                 rawData.add(s.next());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found!" + e.getMessage());
+            logger.error("File not found!" + e.getMessage());
         }
         String[] rawData_array = new String[rawData.size()];
         for(int i = 0; i < rawData.size(); i++) rawData_array[i] = rawData.get(i);
