@@ -68,4 +68,6 @@ public class Day03Test {
         Assert.assertEquals(actualTrees, expectedTrees);
 
     }
+
+
 }

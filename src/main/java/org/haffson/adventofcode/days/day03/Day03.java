@@ -7,10 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.*;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StreamUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -27,16 +29,17 @@ private final HashMap<String, ProblemStatusEnum> problemStatus;
 
 
     // Read content of input file
-    File resource;
-    {
-        try {
-            resource = new ClassPathResource(
-                    "data/day03/input_day03.txt").getFile();
-        } catch (IOException e) {
-            logger.error("Raw Data (Input) file not found: " + e.getMessage());
-        }
-    }
+    public InputStream resource = getClass().getResourceAsStream("/data/day03/input_day03.txt");
 
+//    File resource;
+//    {
+//        try {
+//            resource = new ClassPathResource(
+//                    "data/day03/input_day03.txt").getFile();
+//        } catch (IOException e) {
+//            logger.error("Raw Data (Input) file not found: " + e.getMessage());
+//        }
+//    }
 
 
     private final String[] data = getRawDataAsArray(resource);
@@ -85,15 +88,24 @@ private final HashMap<String, ProblemStatusEnum> problemStatus;
         return test.split("\\n");
     }
 
-    public String[] getRawDataAsArray(File resource) {
-    List<String> rawData = new ArrayList<>();
-    try (Scanner s = new Scanner(new File(String.valueOf(resource.toPath()))).useDelimiter("\n")){
-            while (s.hasNext()) {
-                rawData.add(s.next());
+    public String[] getRawDataAsArray(InputStream resource) {
+//    List<String> rawData = new ArrayList<>();
+//    try (Scanner s = new Scanner(new File(String.valueOf(resource.toPath()))).useDelimiter("\n")){
+//            while (s.hasNext()) {
+//                rawData.add(s.next());
+//            }
+//        } catch (FileNotFoundException e) {
+//            logger.error("File not found!" + e.getMessage());
+//        }
+        ArrayList<String> rawData;
+        try (Scanner scan = new Scanner(resource)) {
+            rawData = new ArrayList<>();
+
+            while (scan.hasNextLine()) {
+                rawData.add(scan.nextLine());
             }
-        } catch (FileNotFoundException e) {
-            logger.error("File not found!" + e.getMessage());
         }
+
         String[] rawData_array = new String[rawData.size()];
         for(int i = 0; i < rawData.size(); i++) rawData_array[i] = rawData.get(i);
 

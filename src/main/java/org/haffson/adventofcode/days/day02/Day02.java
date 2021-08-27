@@ -3,16 +3,12 @@ package org.haffson.adventofcode.days.day02;
 import org.apache.commons.lang3.StringUtils;
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 
@@ -22,21 +18,23 @@ import java.util.*;
 @Component
 public class Day02 implements Days {
 
-    // Adds a logger
-    private static final Logger logger = LoggerFactory.getLogger(Day02.class);
+//    // Adds a logger
+//    private static final Logger logger = LoggerFactory.getLogger(Day02.class);
 
     // Read content of input file
-    File resource;
-    {
-        try {
-            resource = new ClassPathResource(
-                    "data/day02/input_day02.txt").getFile();
-        } catch (IOException e) {
-            logger.error("Raw Data (Input) file not found: " + e.getMessage());
-        }
-    }
+    public InputStream resource = getClass().getResourceAsStream("/data/day02/input_day02.txt");
 
-//    private final String path = "/Users/jenni/dedica/AdventOfCode/Jenni/Day02/src/input.txt";
+
+    //File resource;
+    //    {
+    //        try {
+    //            resource = new ClassPathResource(
+    //                    "data/day02/input_day02.txt").getFile();
+    //        } catch (IOException e) {
+    //            logger.error("Raw Data (Input) file not found: " + e.getMessage());
+    //        }
+    //    }
+
     private List<String> rawData = getRawDataAsList(resource);
 
     /** The puzzle status {@code HashMap} */
@@ -84,16 +82,25 @@ public class Day02 implements Days {
      * Method to read raw data from file into list
      * @return raw data as list
      */
-    public List<String> getRawDataAsList(File file) {
-        List<String> rawData = new ArrayList<>();
+    public List<String> getRawDataAsList(InputStream resource) {
 
-       try (Scanner s = new Scanner(new File(String.valueOf(file.toPath()))).useDelimiter("\n")){
-            while (s.hasNext()) {
-                rawData.add(s.next());
+        ArrayList<String> rawData;
+        try (Scanner scan = new Scanner(resource)) {
+            rawData = new ArrayList<>();
+
+            while (scan.hasNextLine()) {
+                rawData.add(scan.nextLine());
             }
-        } catch (FileNotFoundException e) {
-            logger.error("File not found!");
         }
+//        List<String> rawData = new ArrayList<>();
+//
+//       try (Scanner s = new Scanner(resource){
+//            while (s.hasNext()) {
+//                rawData.add(s.next());
+//            }
+//        } catch (FileNotFoundException e) {
+//            logger.error("File not found!");
+//        }
         return rawData;
     }
 
