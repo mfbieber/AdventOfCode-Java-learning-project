@@ -95,4 +95,5 @@ public class Day02Test {
         Assert.assertEquals(expectedResult, actualResult);
     }
 
+
 }

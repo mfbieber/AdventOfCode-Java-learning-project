@@ -5,16 +5,12 @@ import org.haffson.adventofcode.days.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * Implementation for <i>Day 1: Chronal Calibration</i>.
@@ -29,16 +25,19 @@ public class Day01 implements Days {
     private static final Logger logger = LoggerFactory.getLogger(Day01.class);
 
 
-    // Read content of input file (real data)
-    public File resource;
-    {
-        try {
-            resource = new ClassPathResource(
-                    "data/day01/input_day01.txt").getFile();
-        } catch (IOException e) {
-            logger.error("Raw Data (Input) file not found: " + e.getMessage());
-        }
-    }
+    // Read content of input file
+    public InputStream resource = getClass().getResourceAsStream("/data/day01/input_day01.txt");
+
+//    // Read content of input file (real data)
+//    public File resource;
+//    {
+//        try {
+//            resource = new ClassPathResource(
+//                    "data/day01/input_day01.txt").getFile();
+//        } catch (IOException e) {
+//            logger.error("Raw Data (Input) file not found: " + e.getMessage());
+//        }
+//    }
 
 
 
@@ -82,15 +81,25 @@ public class Day01 implements Days {
 
 
     // read raw data and transform it to String[]
-    public Integer[] getRawData(File resource) {
-        List<String> rawData = new ArrayList<>();
-        try (Scanner s = new Scanner(new File(String.valueOf(resource.toPath()))).useDelimiter("\n")){
-            while (s.hasNext()) {
-                rawData.add(s.next());
+    public Integer[] getRawData(InputStream resource) {
+//        try (Scanner s = new Scanner(new File(String.valueOf(resource.toPath()))).useDelimiter("\n")){
+//            while (s.hasNext()) {
+//                rawData.add(s.next());
+//            }
+//        } catch (FileNotFoundException e) {
+//            logger.error("File not found!" + e.getMessage());
+//        }
+
+        ArrayList<String> rawData;
+        try (Scanner scan = new Scanner(resource)) {
+            rawData = new ArrayList<>();
+
+            while (scan.hasNextLine()) {
+                rawData.add(scan.nextLine());
             }
-        } catch (FileNotFoundException e) {
-            logger.error("File not found!" + e.getMessage());
         }
+
+
         Integer[] rawData_array = new Integer[rawData.size()];
         for(int i = 0; i < rawData.size(); i++) rawData_array[i] = Integer.parseInt(rawData.get(i));
 
@@ -102,10 +111,7 @@ public class Day01 implements Days {
     private int calculateNumber1(Integer[] rawData_array){
 
         List<Integer> data = new ArrayList<>(rawData_array.length);
-        for (int i : rawData_array)
-        {
-            data.add(i);
-        }
+        data.addAll(Arrays.asList(rawData_array));
 
         // create arraylist that is subtracted by 2020
         ArrayList<Integer> data2 = new ArrayList<>();
