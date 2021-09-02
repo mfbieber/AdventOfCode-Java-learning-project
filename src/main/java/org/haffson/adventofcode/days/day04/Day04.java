@@ -2,8 +2,6 @@ package org.haffson.adventofcode.days.day04;
 
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +17,7 @@ public class Day04 implements Days {
     /**
      * The puzzle status {@code HashMap}
      */
-    private final HashMap<String, ProblemStatusEnum> problemStatus;
+    private final Map<Integer, ProblemStatusEnum> problemStatus;
 
 //    // Adds a logger
 //    private static final Logger logger = LoggerFactory.getLogger(Day04.class);
@@ -70,8 +68,8 @@ public class Day04 implements Days {
     @Autowired
     Day04() {
         this.problemStatus = new HashMap<>();
-        this.problemStatus.put("1", ProblemStatusEnum.SOLVED);
-        this.problemStatus.put("2", ProblemStatusEnum.SOLVED);
+        this.problemStatus.put(1, ProblemStatusEnum.SOLVED);
+        this.problemStatus.put(2, ProblemStatusEnum.SOLVED);
     }
 
     // get current Day
@@ -80,8 +78,10 @@ public class Day04 implements Days {
         return 4;
     }
 
+
+
     @Override
-    public HashMap<String, ProblemStatusEnum> getProblemStatus() {
+    public Map<Integer, ProblemStatusEnum> getProblemStatus() {
         return problemStatus;
     }
 

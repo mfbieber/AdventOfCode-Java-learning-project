@@ -41,8 +41,8 @@ public class AdventOfCodeControllerTest {
 
     private MediaType contentType = new MediaType("application", "hal+json", Charset.forName("UTF-8"));
 
-    private String day1 = "1";
-    private String part1 = "1";
+    private Integer day1 = 1;
+    private Integer part1 = 1;
     private String resultDay1Part1 = "Part 1 - Frequency: 599";
 
     @Autowired

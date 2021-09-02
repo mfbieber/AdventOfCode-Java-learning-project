@@ -38,13 +38,13 @@ public class Day02 implements Days {
     private List<String> rawData = getRawDataAsList(resource);
 
     /** The puzzle status {@code HashMap} */
-    private final HashMap<String, ProblemStatusEnum> problemStatus;
+    private final Map<Integer, ProblemStatusEnum> problemStatus;
 
     @Autowired
     Day02() {
         this.problemStatus = new HashMap<>();
-        this.problemStatus.put("1", ProblemStatusEnum.SOLVED);
-        this.problemStatus.put("2", ProblemStatusEnum.SOLVED);
+        this.problemStatus.put(1, ProblemStatusEnum.SOLVED);
+        this.problemStatus.put(2, ProblemStatusEnum.SOLVED);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Day02 implements Days {
     }
 
     @Override
-    public HashMap<String, ProblemStatusEnum> getProblemStatus() {
+    public Map<Integer, ProblemStatusEnum> getProblemStatus() {
         return problemStatus;
     }
 

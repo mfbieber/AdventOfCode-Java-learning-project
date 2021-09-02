@@ -20,7 +20,7 @@ import java.util.List;
 public class AdventOfCodeServiceTest {
 
     private final List<Days> daysSolutions = new LinkedList<>();
-    private HashMap<String, ProblemStatusEnum> problemStatus = new HashMap<>();
+    private HashMap<Integer, ProblemStatusEnum> problemStatus = new HashMap<>();
 
     private AdventOfCodeService adventOfCodeService;
 
@@ -30,8 +30,8 @@ public class AdventOfCodeServiceTest {
 
     @Before
     public void setup() {
-        problemStatus.put("1", ProblemStatusEnum.SOLVED);
-        problemStatus.put("2", ProblemStatusEnum.UNSOLVED);
+        problemStatus.put(1, ProblemStatusEnum.SOLVED);
+        problemStatus.put(2, ProblemStatusEnum.UNSOLVED);
         daysSolutions.add(day01);
         Mockito.when(day01.getDay()).thenReturn(1);
         Mockito.when(day01.getProblemStatus()).thenReturn(problemStatus);
@@ -41,24 +41,24 @@ public class AdventOfCodeServiceTest {
 
     @Test
     public void getResultsForASpecificDayAndPuzzlePartTest() {
-        String actualResult = adventOfCodeService.getResultsForASpecificDayAndPuzzlePart("1", "1");
+        String actualResult = adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(1, 2);
 
         Assert.assertEquals("Part 1 - Frequency: 599", actualResult);
     }
 
     @Test(expected = PuzzleNotSolvedYetException.class)
     public void tryingToGetResultsForANotYetImplementedPartThrowsExceptionTest() {
-        adventOfCodeService.getResultsForASpecificDayAndPuzzlePart("1", "2");
+        adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(1, 2);
     }
 
     @Test(expected = PuzzleNotSolvedYetException.class)
     public void tryingToGetResultsForANotYetImplementedDayThrowsException() {
-        adventOfCodeService.getResultsForASpecificDayAndPuzzlePart("2", "1");
+        adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(1, 1);
     }
 
     @Test(expected = PuzzleNotSolvedYetException.class)
     public void tryingToGetResultsForAnyOtherPartThrowsException() {
-        adventOfCodeService.getResultsForASpecificDayAndPuzzlePart("1", "3");
+        adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(1, 3);
     }
 
 }
