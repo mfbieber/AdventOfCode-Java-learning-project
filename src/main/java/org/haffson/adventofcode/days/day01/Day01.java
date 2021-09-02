@@ -4,7 +4,6 @@ import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -18,14 +17,19 @@ import java.util.*;
 @Component
 public class Day01 implements Days {
 
+//    // initialization:
+//    private final InputStream resource;
+//    private Scanner scan;
+
     /** The puzzle status {@code HashMap} */
-    private final HashMap<String, ProblemStatusEnum> problemStatus;
+    private final Map<Integer, ProblemStatusEnum> problemStatus;
 
     // Adds a logger
     private static final Logger logger = LoggerFactory.getLogger(Day01.class);
 
 
     // Read content of input file
+    // create constructor?
     public InputStream resource = getClass().getResourceAsStream("/data/day01/input_day01.txt");
 
 //    // Read content of input file (real data)
@@ -41,11 +45,14 @@ public class Day01 implements Days {
 
 
 
-    @Autowired
+//    @Autowired
     Day01() {
+//        resource = getClass().getResourceAsStream("/data/day01/input_day01.txt");
+//        if (resource==null) throw new RuntimeException("Could not access data file");
+//        Scanner scan = new Scanner(resource);
         this.problemStatus = new HashMap<>();
-        this.problemStatus.put("1", ProblemStatusEnum.SOLVED);
-        this.problemStatus.put("2", ProblemStatusEnum.SOLVED);
+        this.problemStatus.put(1, ProblemStatusEnum.SOLVED);
+        this.problemStatus.put(2, ProblemStatusEnum.SOLVED);
     }
 
     @Override
@@ -54,7 +61,7 @@ public class Day01 implements Days {
     }
 
     @Override
-    public HashMap<String, ProblemStatusEnum> getProblemStatus() {
+    public Map<Integer, ProblemStatusEnum> getProblemStatus() {
         return problemStatus;
     }
 
@@ -98,6 +105,13 @@ public class Day01 implements Days {
                 rawData.add(scan.nextLine());
             }
         }
+
+//        ArrayList<String> rawData;
+//        rawData = new ArrayList<>();
+//
+//        while (scan.hasNextLine()) {
+//            rawData.add(scan.nextLine());
+//        }
 
 
         Integer[] rawData_array = new Integer[rawData.size()];
@@ -144,15 +158,15 @@ public class Day01 implements Days {
         // create arraylist that is subtracted by 2020
         ArrayList<Integer> data2 = new ArrayList<Integer>();
 
-        for (int j = 0; j < data.size(); j++) {
-            data2.add(2020 - data.get(j));
+        for (Integer integer : data) {
+            data2.add(2020 - integer);
         }
 
         ArrayList<Integer> data3 = new ArrayList<Integer>();
 
         for (int k=0; k<data.size();k++) {
-            for (int l=0; l<data.size(); l++){
-                data3.add(data.get(k) + data.get(l));
+            for (Integer datum : data) {
+                data3.add(data.get(k) + datum);
 
             }
         }

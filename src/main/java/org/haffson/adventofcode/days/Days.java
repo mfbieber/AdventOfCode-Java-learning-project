@@ -2,7 +2,7 @@ package org.haffson.adventofcode.days;
 
 import org.haffson.adventofcode.ProblemStatusEnum;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An interface for the individual puzzles,
@@ -38,5 +38,5 @@ public interface Days {
      *
      * @return the status of each part
      */
-    HashMap<String, ProblemStatusEnum> getProblemStatus();
+    Map<Integer, ProblemStatusEnum> getProblemStatus();
 }

@@ -53,7 +53,8 @@ public class AdventOfCodeController {
      * @return a HATEOAS-{@code Resource<>} with the corresponding solution
      */
     @GetMapping
-    public Resource getResultForASpecificDayAndPuzzlePart(@RequestParam(value = "day", defaultValue = "") String day, @RequestParam(value = "part", defaultValue = "") String part) {
+    public Resource getResultForASpecificDayAndPuzzlePart(@RequestParam(value = "day") Integer day,
+                                                          @RequestParam(value = "part") Integer part) {
 
         logger.info("The results for day " + day + ", part " + part + " have been requested.");
 

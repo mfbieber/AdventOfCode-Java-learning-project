@@ -43,13 +43,18 @@ public class AdventOfCodeService {
      * @return a {@code String} with the result for the puzzle, or in case it has not been implemented,
      * an {@link PuzzleNotSolvedYetException} is thrown.
      */
-    public String getResultsForASpecificDayAndPuzzlePart(String day, String part) {
-        Days thisDaysClass = findDayForDay(Integer.parseInt(day));
+    public String getResultsForASpecificDayAndPuzzlePart(Integer day, Integer part) {
+
+        Objects.requireNonNull(day, "day is null");
+        Objects.requireNonNull(part, "part is null");
+
+
+        Days thisDaysClass = findDayForDay(day);
         if (!isProblemSolvedForPart(thisDaysClass, part)) {
             throw new PuzzleNotSolvedYetException(new Throwable());
-        } else if (("1").equals(part)) {
+        } else if ((part).equals(1)) {
             return thisDaysClass.firstPart();
-        } else if (("2").equals(part)) {
+        } else if ((part).equals(2)) {
             return thisDaysClass.secondPart();
         } else {
             return "This puzzle has not been solved yet.";
@@ -63,7 +68,7 @@ public class AdventOfCodeService {
      * @param part the part to check for it's solution status
      * @return if the part has been solved for a specific day
      */
-    private boolean isProblemSolvedForPart(Days thisDaysClass, String part) {
+    private boolean isProblemSolvedForPart(Days thisDaysClass, Integer part) {
         return thisDaysClass.getProblemStatus().containsKey(part) && thisDaysClass.getProblemStatus().get(part) == ProblemStatusEnum.SOLVED;
     }
 

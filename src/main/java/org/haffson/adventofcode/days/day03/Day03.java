@@ -5,13 +5,8 @@ import org.haffson.adventofcode.days.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.*;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StreamUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
@@ -22,7 +17,7 @@ import java.util.*;
 public class Day03 implements Days {
 
 /** The puzzle status {@code HashMap} */
-private final HashMap<String, ProblemStatusEnum> problemStatus;
+private final Map<Integer, ProblemStatusEnum> problemStatus;
 
     // Adds a logger
     private static final Logger logger = LoggerFactory.getLogger(Day03.class);
@@ -48,8 +43,8 @@ private final HashMap<String, ProblemStatusEnum> problemStatus;
     @Autowired
     Day03() {
         this.problemStatus = new HashMap<>();
-        this.problemStatus.put("1", ProblemStatusEnum.SOLVED);
-        this.problemStatus.put("2", ProblemStatusEnum.SOLVED);
+        this.problemStatus.put(1, ProblemStatusEnum.SOLVED);
+        this.problemStatus.put(2, ProblemStatusEnum.SOLVED);
     }
 
     @Override
@@ -58,7 +53,7 @@ private final HashMap<String, ProblemStatusEnum> problemStatus;
     }
 
     @Override
-    public HashMap<String, ProblemStatusEnum> getProblemStatus() {
+    public Map<Integer, ProblemStatusEnum> getProblemStatus() {
         return problemStatus;
     }
 
