@@ -35,15 +35,15 @@ public class AdventOfCodeServiceTest {
         daysSolutions.add(day01);
         Mockito.when(day01.getDay()).thenReturn(1);
         Mockito.when(day01.getProblemStatus()).thenReturn(problemStatus);
-        Mockito.when(day01.firstPart()).thenReturn("Part 1 - Frequency: 599");
+        Mockito.when(day01.firstPart()).thenReturn("Product 1: " + 326211);
         adventOfCodeService = new AdventOfCodeService(daysSolutions);
     }
 
     @Test
     public void getResultsForASpecificDayAndPuzzlePartTest() {
-        String actualResult = adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(1, 2);
+        String actualResult = adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(1, 1);
 
-        Assert.assertEquals("Part 1 - Frequency: 599", actualResult);
+        Assert.assertEquals("Product 1: " + 326211, actualResult);
     }
 
     @Test(expected = PuzzleNotSolvedYetException.class)
@@ -53,12 +53,12 @@ public class AdventOfCodeServiceTest {
 
     @Test(expected = PuzzleNotSolvedYetException.class)
     public void tryingToGetResultsForANotYetImplementedDayThrowsException() {
-        adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(1, 1);
+        adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(10, 1);
     }
 
     @Test(expected = PuzzleNotSolvedYetException.class)
     public void tryingToGetResultsForAnyOtherPartThrowsException() {
-        adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(1, 3);
+        adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(2, 3);
     }
 
 }
