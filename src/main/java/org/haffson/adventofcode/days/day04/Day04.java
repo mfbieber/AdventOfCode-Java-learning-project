@@ -27,42 +27,13 @@ public class Day04 implements Days {
     public InputStream testResource = getClass().getResourceAsStream("/data/day04/day04_testdata.txt");
 
 
-//    public File testResource;
-//    {
-//        try {
-//            testResource = new ClassPathResource(
-//                    "data/day04/day04_testdata.txt").getFile();
-//        } catch (IOException e) {
-//            logger.error("Raw Data (Input) file not found: " + e.getMessage());
-//        }
-//    }
-
     // Read content of test file (puzzle part 2)
 
     public InputStream testResource2 = getClass().getResourceAsStream("/data/day04/day04_testdata2.txt");
 
-//    public File testResource2;
-//    {
-//        try {
-//            testResource2 = new ClassPathResource(
-//                    "data/day04/day04_testdata2.txt").getFile();
-//        } catch (IOException e) {
-//            logger.error("Raw Data (Input) file not found: " + e.getMessage());
-//        }
-//    }
 
     // Read content of input file (real data)
     public InputStream resource = getClass().getResourceAsStream("/data/day04/input_day04.txt");
-
-//    public File resource;
-//    {
-//        try {
-//            resource = new ClassPathResource(
-//                    "data/day04/input_day04.txt").getFile();
-//        } catch (IOException e) {
-//            logger.error("Raw Data (Input) file not found: " + e.getMessage());
-//        }
-//    }
 
 
     @Autowired
@@ -99,14 +70,6 @@ public class Day04 implements Days {
 
     // read raw data and transform it to String[]
     public String[] getRawData(InputStream resource) {
-//        List<String> rawData = new ArrayList<>();
-//        try (Scanner s = new Scanner(new File(String.valueOf(resource.toPath()))).useDelimiter("\n\n")){
-//            while (s.hasNext()) {
-//                rawData.add(s.next());
-//            }
-//        } catch (FileNotFoundException e) {
-//            logger.error("File not found!" + e.getMessage());
-//        }
 
         ArrayList<String> rawData;
         try (Scanner scan = new Scanner(resource)) {

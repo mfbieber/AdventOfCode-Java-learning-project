@@ -23,18 +23,6 @@ public class Day02 implements Days {
 
     // Read content of input file
     public InputStream resource = getClass().getResourceAsStream("/data/day02/input_day02.txt");
-
-
-    //File resource;
-    //    {
-    //        try {
-    //            resource = new ClassPathResource(
-    //                    "data/day02/input_day02.txt").getFile();
-    //        } catch (IOException e) {
-    //            logger.error("Raw Data (Input) file not found: " + e.getMessage());
-    //        }
-    //    }
-
     private List<String> rawData = getRawDataAsList(resource);
 
     /** The puzzle status {@code HashMap} */
@@ -92,15 +80,7 @@ public class Day02 implements Days {
                 rawData.add(scan.nextLine());
             }
         }
-//        List<String> rawData = new ArrayList<>();
-//
-//       try (Scanner s = new Scanner(resource){
-//            while (s.hasNext()) {
-//                rawData.add(s.next());
-//            }
-//        } catch (FileNotFoundException e) {
-//            logger.error("File not found!");
-//        }
+
         return rawData;
     }
 
