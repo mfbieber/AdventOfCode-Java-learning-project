@@ -43,7 +43,7 @@ public class AdventOfCodeControllerTest {
 
     private Integer day1 = 1;
     private Integer part1 = 1;
-    private String resultDay1Part1 = "Part 1 - Frequency: 599";
+    private String resultDay1Part1 = "Product 1: " + 326211;
 
     @Autowired
     private MockMvc mvc;
