@@ -31,4 +31,18 @@ public class Day01Test {
         Assert.assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    public void test_secondPart_returnsExpectedResult() {
+        //arrange
+        Day01 day01 = new Day01();
+
+        String expectedResult = "Product 2: " + 131347190;
+
+        //act
+        String actualResult = day01.secondPart();
+
+        //assert
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
 }

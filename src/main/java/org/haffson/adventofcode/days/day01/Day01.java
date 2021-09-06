@@ -17,10 +17,6 @@ import java.util.*;
 @Component
 public class Day01 implements Days {
 
-//    // initialization:
-//    private final InputStream resource;
-//    private Scanner scan;
-
     /** The puzzle status {@code HashMap} */
     private final Map<Integer, ProblemStatusEnum> problemStatus;
 
@@ -29,27 +25,13 @@ public class Day01 implements Days {
 
 
     // Read content of input file
-    // create constructor?
     public InputStream resource = getClass().getResourceAsStream("/data/day01/input_day01.txt");
-
-//    // Read content of input file (real data)
-//    public File resource;
-//    {
-//        try {
-//            resource = new ClassPathResource(
-//                    "data/day01/input_day01.txt").getFile();
-//        } catch (IOException e) {
-//            logger.error("Raw Data (Input) file not found: " + e.getMessage());
-//        }
-//    }
+    private final Integer[] data = getRawData(resource);
 
 
 
-//    @Autowired
+    //    @Autowired
     Day01() {
-//        resource = getClass().getResourceAsStream("/data/day01/input_day01.txt");
-//        if (resource==null) throw new RuntimeException("Could not access data file");
-//        Scanner scan = new Scanner(resource);
         this.problemStatus = new HashMap<>();
         this.problemStatus.put(1, ProblemStatusEnum.SOLVED);
         this.problemStatus.put(2, ProblemStatusEnum.SOLVED);
@@ -67,13 +49,13 @@ public class Day01 implements Days {
 
     @Override
     public String firstPart() {
-        return "Product 1: " + calculateNumber1(getRawData(resource));
+        return "Product 1: " + calculateNumber1(data);
     }
 
     @Override
     public String secondPart() {
         try {
-            return "Product 2: " + calculateNumber2();
+            return "Product 2: " + calculateNumber2(data);
         } catch (FileNotFoundException e) {
             return "error";
         }
@@ -85,17 +67,9 @@ public class Day01 implements Days {
      *
      * @return the final frequency
      */
-
-
     // read raw data and transform it to String[]
     public Integer[] getRawData(InputStream resource) {
-//        try (Scanner s = new Scanner(new File(String.valueOf(resource.toPath()))).useDelimiter("\n")){
-//            while (s.hasNext()) {
-//                rawData.add(s.next());
-//            }
-//        } catch (FileNotFoundException e) {
-//            logger.error("File not found!" + e.getMessage());
-//        }
+
 
         ArrayList<String> rawData;
         try (Scanner scan = new Scanner(resource)) {
@@ -105,13 +79,6 @@ public class Day01 implements Days {
                 rawData.add(scan.nextLine());
             }
         }
-
-//        ArrayList<String> rawData;
-//        rawData = new ArrayList<>();
-//
-//        while (scan.hasNextLine()) {
-//            rawData.add(scan.nextLine());
-//        }
 
 
         Integer[] rawData_array = new Integer[rawData.size()];
@@ -135,31 +102,22 @@ public class Day01 implements Days {
         }
 
         // check for intersection of two arraylists
-        ArrayList<Integer> test = new ArrayList<Integer>();
         data.retainAll(data2);
 
         // multiplication of "intersected" values is the puzzle's answer!
-//        System.out.println("The answer of Puzzle Day 1.1 is: " + data.get(0) * data.get(1));
         return data.get(0) * data.get(1);
     }
 
-    private int calculateNumber2() throws FileNotFoundException {
+    private int calculateNumber2(Integer[] rawData_array) throws FileNotFoundException {
 
-        // read data file
-        Scanner s = new Scanner(new File("/Users/jenni/dedica/AdventOfCode/AdventOfCode-Java-learning-project/src/main/resources/data/day01/input_day01.txt"));
-        ArrayList<Integer> data = new ArrayList<Integer>();
-
-        while (s.hasNext()) {
-            int i = Integer.parseInt(s.next());
-            data.add(i);
-        }
-        s.close();
+        List<Integer> data = new ArrayList<>(rawData_array.length);
+        data.addAll(Arrays.asList(rawData_array));
 
         // create arraylist that is subtracted by 2020
-        ArrayList<Integer> data2 = new ArrayList<Integer>();
+        ArrayList<Integer> data2 = new ArrayList<>();
 
-        for (Integer integer : data) {
-            data2.add(2020 - integer);
+        for (Integer datum : data) {
+            data2.add(2020 - datum);
         }
 
         ArrayList<Integer> data3 = new ArrayList<Integer>();
@@ -174,7 +132,6 @@ public class Day01 implements Days {
         data2.retainAll(data3);
 
         // multiplication of "intersected" values is the puzzle's answer!
-//        System.out.println("The answer of Puzzle Day 1.2 is: " + (2020-data2.get(0))*(2020-data2.get(1))*(2020-data2.get(2)));
 
         return (2020-data2.get(0))*(2020-data2.get(1))*(2020-data2.get(2));
 

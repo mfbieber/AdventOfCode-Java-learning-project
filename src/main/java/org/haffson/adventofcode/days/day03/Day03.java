@@ -26,16 +26,6 @@ private final Map<Integer, ProblemStatusEnum> problemStatus;
     // Read content of input file
     public InputStream resource = getClass().getResourceAsStream("/data/day03/input_day03.txt");
 
-//    File resource;
-//    {
-//        try {
-//            resource = new ClassPathResource(
-//                    "data/day03/input_day03.txt").getFile();
-//        } catch (IOException e) {
-//            logger.error("Raw Data (Input) file not found: " + e.getMessage());
-//        }
-//    }
-
 
     private final String[] data = getRawDataAsArray(resource);
 
@@ -84,14 +74,6 @@ private final Map<Integer, ProblemStatusEnum> problemStatus;
     }
 
     public String[] getRawDataAsArray(InputStream resource) {
-//    List<String> rawData = new ArrayList<>();
-//    try (Scanner s = new Scanner(new File(String.valueOf(resource.toPath()))).useDelimiter("\n")){
-//            while (s.hasNext()) {
-//                rawData.add(s.next());
-//            }
-//        } catch (FileNotFoundException e) {
-//            logger.error("File not found!" + e.getMessage());
-//        }
         ArrayList<String> rawData;
         try (Scanner scan = new Scanner(resource)) {
             rawData = new ArrayList<>();
