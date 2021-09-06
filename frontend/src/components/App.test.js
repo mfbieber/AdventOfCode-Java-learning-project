@@ -17,11 +17,11 @@ describe("App", () => {
     const actualPuzzleCards = component.instance().addPuzzleCards();
 
     expect(
-      actualPuzzleCards.map(card => card.props.result)
+        actualPuzzleCards.map(card => card.props.result)
     ).to.have.all.members(expectedResults);
 
     expect(
-      actualPuzzleCards.map(card => card.props.cardType)
+        actualPuzzleCards.map(card => card.props.cardType)
     ).to.have.all.members(["puzzleCard", "puzzleCard", "puzzleCard"]);
 
     expect(actualPuzzleCards.map(card => card.props.day)).to.have.all.members([
@@ -47,22 +47,22 @@ describe("App", () => {
     expect(component.children().getElements().length).to.equal(2);
 
     expect(component.childAt(0).name()).to.equal(
-      "WithStyles(PrimarySearchAppBar)"
+        "WithStyles(PrimarySearchAppBar)"
     );
     expect(component.childAt(1).name()).to.equal("WithStyles(ForwardRef(Grid))");
 
     expect(
-      component
-        .childAt(1)
-        .children()
-        .getElements().length
-    ).to.equal(3);
+        component
+            .childAt(1)
+            .children()
+            .getElements().length
+    ).to.equal(1);
 
     expect(
-      component
-        .childAt(1)
-        .childAt(0)
-        .name()
+        component
+            .childAt(1)
+            .childAt(0)
+            .name()
     ).to.equal("WithStyles(CardTemplate)");
   });
 
