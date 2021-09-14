@@ -18,7 +18,7 @@ public class Day03Test {
 
     // Test getTestData()
     @Test
-    public void testGetTestData(){
+    public void testGetTestData() {
         Day03 day03 = new Day03();
         String[] lines = day03.getTestData();
         String actualSquare = Character.toString(lines[0].charAt(0));
@@ -28,46 +28,39 @@ public class Day03Test {
 
     // Test getNumTrees() with testData
     @Test
-    public void testGetNumTrees(){
+    public void testGetNumTrees() {
         Day03 day03 = new Day03();
         String actualTrees = "Trees encountered: " + day03.getNumTrees(day03.getTestData());
         String expectedTrees = "Trees encountered: " + 7;
         Assert.assertEquals(actualTrees, expectedTrees);
-
     }
 
     // Test getNumTrees() with real data (input_day03.txt)
     @Test
-    public void testGetNumTreesRealData(){
+    public void testGetNumTreesRealData() {
         Day03 day03 = new Day03();
         String actualTrees = day03.firstPart();
         String expectedTrees = "Trees encountered: " + 159;
         Assert.assertEquals(actualTrees, expectedTrees);
-
     }
-
 
     // puzzle day03 part 2
     // Test getProduct() with test data
     @Test
-    public void testGetProduct(){
+    public void testGetProduct() {
         Day03 day03 = new Day03();
         String actualTrees = "Product of all slopes: " + day03.getProduct(day03.getTestData());
         String expectedTrees = "Product of all slopes: " + 336;
         Assert.assertEquals(actualTrees, expectedTrees);
-
     }
 
     // puzzle day03 part 2
     // Test getProduct() with real data
     @Test
-    public void testGetProduct_realData(){
+    public void testGetProduct_realData() {
         Day03 day03 = new Day03();
         String actualTrees = day03.secondPart();
         String expectedTrees = "Product of all slopes: " + "6419669520";
         Assert.assertEquals(actualTrees, expectedTrees);
-
     }
-
-
 }
