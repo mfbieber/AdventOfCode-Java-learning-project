@@ -6,7 +6,6 @@ import org.haffson.adventofcode.days.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.*;
@@ -18,14 +17,13 @@ import java.util.*;
 @Component
 public class Day02 implements Days {
 
-//    // Adds a logger
-//    private static final Logger logger = LoggerFactory.getLogger(Day02.class);
-
     // Read content of input file
     public InputStream resource = getClass().getResourceAsStream("/data/day02/input_day02.txt");
     private List<String> rawData = getRawDataAsList(resource);
 
-    /** The puzzle status {@code HashMap} */
+    /**
+     * The puzzle status {@code HashMap}
+     */
     private final Map<Integer, ProblemStatusEnum> problemStatus;
 
     @Autowired
@@ -63,11 +61,9 @@ public class Day02 implements Days {
         }
     }
 
-
-
-
     /**
      * Method to read raw data from file into list
+     *
      * @return raw data as list
      */
     public List<String> getRawDataAsList(InputStream resource) {
@@ -102,11 +98,10 @@ public class Day02 implements Days {
             this.password = requireNonNullAndNonEmpty(password);
 
         }
-
     }
 
-    public static String requireNonNullAndNonEmpty(String string){
-        if (StringUtils.isEmpty(string)){
+    public static String requireNonNullAndNonEmpty(String string) {
+        if (StringUtils.isEmpty(string)) {
             throw new NullPointerException("The string is null or empty");
         } else {
             return string;
@@ -114,9 +109,7 @@ public class Day02 implements Days {
     }
 
     public List<Data> getData(List<String> rawData) {
-
         List<Data> dataArrayList = new ArrayList<>();
-
         for (String line : rawData) {
             // match patterns to determine min and max number of the letter in password,
             // the searched letter and password itself
@@ -130,7 +123,6 @@ public class Day02 implements Days {
         }
         return dataArrayList;
     }
-
 
     /**
      * Primary method for Day 1, Part 1.
@@ -149,7 +141,7 @@ public class Day02 implements Days {
             int count = 0;  // number of letter appearance in password
 
             // count how often specific letter appears in pwd
-            for (int j = 0; j < datum.password.length(); j++){
+            for (int j = 0; j < datum.password.length(); j++) {
                 if (datum.password.charAt(j) == datum.letter.charAt(0)) count++;
             }
             // check if count meets criteria for correct password

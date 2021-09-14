@@ -1,10 +1,7 @@
 package org.haffson.adventofcode.days.day04;
 
-import org.haffson.adventofcode.days.day03.Day03;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.HashMap;
 
 public class Day04Test {
 
@@ -26,7 +23,6 @@ public class Day04Test {
         Integer actual = day04.getRawData(day04.testResource).length;
         Assert.assertEquals(actual, expected);
     }
-
 
     // test number of valid passports of test data
     @Test
@@ -54,5 +50,4 @@ public class Day04Test {
         int actual = day04.getRestrictedNumberValidPassports(day04.getRawData(day04.resource));
         Assert.assertEquals(actual, expected);
     }
-
 }

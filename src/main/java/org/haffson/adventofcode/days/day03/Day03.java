@@ -2,8 +2,6 @@ package org.haffson.adventofcode.days.day03;
 
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,24 +9,19 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
- * Implementation for <i>Day 1: Chronal Calibration</i>.
+ * Implementation for <i>Day 1: chronal Calibration</i>.
  */
 @Component
 public class Day03 implements Days {
 
-/** The puzzle status {@code HashMap} */
-private final Map<Integer, ProblemStatusEnum> problemStatus;
-
-    // Adds a logger
-    private static final Logger logger = LoggerFactory.getLogger(Day03.class);
-
+    /**
+     * The puzzle status {@code HashMap}
+     */
+    private final Map<Integer, ProblemStatusEnum> problemStatus;
 
     // Read content of input file
     public InputStream resource = getClass().getResourceAsStream("/data/day03/input_day03.txt");
-
-
     private final String[] data = getRawDataAsArray(resource);
-
 
     @Autowired
     Day03() {
@@ -84,31 +77,31 @@ private final Map<Integer, ProblemStatusEnum> problemStatus;
         }
 
         String[] rawData_array = new String[rawData.size()];
-        for(int i = 0; i < rawData.size(); i++) rawData_array[i] = rawData.get(i);
+        for (int i = 0; i < rawData.size(); i++) rawData_array[i] = rawData.get(i);
 
         return rawData_array;
     }
 
-//    method for answer of puzzle day03 part 1
+    //    method for answer of puzzle day03 part 1
 //    search for number of trees encountered
-    public String getNumTrees(String[] data){
+    public String getNumTrees(String[] data) {
 
         int sizeX = data[0].length(); // vertical direction
         int sizeY = data.length;      // horizontal direction
         int numTrees = 0; // number of trees encountered
         char square = 0; // each coordinate on grid is called square
 
-        for (int i=1; i<sizeY; i++){
+        for (int i = 1; i < sizeY; i++) {
             // every step: 1 square vertical, 3 squares horizontal
-            if((i*3)<=sizeX) {
-                square = data[i*1].charAt(i*3);
+            if ((i * 3) <= sizeX) {
+                square = data[i * 1].charAt(i * 3);
             }
             // as in horizontal direction the same pattern repeats to the right many times, use modulo in if-condition
-            else if (i*3>sizeX) {
-                int repeatedPosition = (i*3)%sizeX;
-                square = data[i*1].charAt(repeatedPosition);
+            else if (i * 3 > sizeX) {
+                int repeatedPosition = (i * 3) % sizeX;
+                square = data[i * 1].charAt(repeatedPosition);
             }
-            if (square == '#'){
+            if (square == '#') {
                 numTrees++;
             }
         }
@@ -116,7 +109,7 @@ private final Map<Integer, ProblemStatusEnum> problemStatus;
     }
 
     // method for answer of puzzle day03 part 1
-    public String getProduct(String[] data){
+    public String getProduct(String[] data) {
         // 5 slopes need to be checked
         int[] stepY = new int[5];
         int[] stepX = new int[5];
@@ -137,11 +130,11 @@ private final Map<Integer, ProblemStatusEnum> problemStatus;
         int sizeY = data.length;      // vertical direction
         long product = 1; // number of product of all trees with all slopes
 
-        for (int j=0; j<stepY.length; j++){
+        for (int j = 0; j < stepY.length; j++) {
             int numTrees = 0; // number of trees encountered
 
-            for (int i=1; i * stepY[j] < sizeY; i++) {
-                if(data[i * stepY[j]].charAt((i * stepX[j]) % sizeX) == '#'){
+            for (int i = 1; i * stepY[j] < sizeY; i++) {
+                if (data[i * stepY[j]].charAt((i * stepX[j]) % sizeX) == '#') {
                     numTrees++;
                 }
             }
@@ -149,5 +142,4 @@ private final Map<Integer, ProblemStatusEnum> problemStatus;
         }
         return "" + product;
     }
-
 }
