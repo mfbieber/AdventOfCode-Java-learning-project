@@ -25,12 +25,13 @@ public class Day05Test {
     @Test
     public void test_firstPart() {
         Day05 day05 = new Day05();
-        String expected = "The highestSeatID is: " + 930;
+        String expected = "The highest seatID is: " + 930;
         String actual = day05.firstPart();
         Assert.assertEquals(expected, actual);
     }
 
-    // test method firstPart()
+    // puzzle 5.2 real data:
+    // test method secondPart()
     @Test
     public void test_secondPart() {
         Day05 day05 = new Day05();

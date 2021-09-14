@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class Day05 implements Days {
@@ -29,7 +30,7 @@ public class Day05 implements Days {
     public InputStream testDataInputStream = getClass().getResourceAsStream("/data/day05/day05_testdata1.txt");
     public InputStream dataInputStream = getClass().getResourceAsStream("/data/day05/input_day05.txt");
 
-    public static ArrayList<String> getRawdataAsList(InputStream data){
+    public static ArrayList<String> getRawdataAsList(InputStream data) {
         ArrayList<String> rawdata;
         try (Scanner scan = new Scanner(data)) {
             rawdata = new ArrayList<>();
@@ -47,67 +48,65 @@ public class Day05 implements Days {
     public int getRowOrCol(@NonNull String s, int stop, char identifier1, char identifier2) {
         s = requireNonNullAndNonEmpty(s);
         int numMin = 0;
-        int numMax = stop-1;
+        int numMax = stop - 1;
         int rowOrCol = 0;
         int num = 1;
         int count = 0;
-        for (Character letter: s.toCharArray()) {
+        for (Character letter : s.toCharArray()) {
             if (letter.equals(identifier1)) {
-                numMax = (int) (numMax-stop/Math.pow(2,num));
+                numMax = (int) (numMax - stop / Math.pow(2, num));
                 num++;
                 count++;
             }
             if (letter.equals(identifier2)) {
-                numMin = numMin + (int)(stop/Math.pow(2,num));
+                numMin = numMin + (int) (stop / Math.pow(2, num));
                 num++;
                 count++;
             }
-            if (count==s.length() && (letter.equals(identifier1))) {
+            if (count == s.length() && (letter.equals(identifier1))) {
                 rowOrCol = numMin;
 
-            } else if (count==s.length() && (letter.equals(identifier2))) {
-                    rowOrCol = numMax;
-                }
+            } else if (count == s.length() && (letter.equals(identifier2))) {
+                rowOrCol = numMax;
+            }
         }
         return rowOrCol;
     }
 
-    // check for nulls (if input string is empty)
-    public static String requireNonNullAndNonEmpty(String string){
-        if (StringUtils.isEmpty(string)){
-            throw new NullPointerException("The string is null or empty");
+    @NonNull
+    //check for nulls (if input string is empty)
+    public static String requireNonNullAndNonEmpty(String string) {
+        if (StringUtils.isEmpty(string)) {
+            throw new IllegalArgumentException("The string is null or empty");
         } else {
             return string;
         }
     }
 
     // seatID is row*8 + column
-    public ArrayList<Integer> getSeatID(InputStream dataIn) {
-        ArrayList<Integer> seatIDs = new ArrayList<>();
-        ArrayList<String> data = getRawdataAsList(dataIn);
-        for (String ss : data) {
-            seatIDs.add(getRowOrCol(ss.substring(0,7),128, 'F', 'B')*8
-                    + getRowOrCol(ss.substring(7,ss.length()),8, 'L', 'R'));
-        }
-        return seatIDs;
+    public List<Integer> getSeatID(@NonNull final InputStream dataIn) {
+        return getRawdataAsList(Objects.requireNonNull(dataIn, "Data Inputstream is null.")).stream()
+                .map(ss -> getRowOrCol(ss.substring(0, 7), 128, 'F', 'B') * 8
+                        + getRowOrCol(ss.substring(7), 8, 'L', 'R'))
+                .collect(Collectors.toList());
     }
 
     // First Part: find highest seatID
     @Override
     public String firstPart() {
         int highestSeatID = Collections.max(getSeatID(dataInputStream));
-        return "The highestSeatID is: " + highestSeatID;
+        return "The highest seatID is: " + highestSeatID;
     }
 
     // Second Part: find missing seatID
     @Override
     public String secondPart() {
-        ArrayList<Integer> seatIDs_sorted =getSeatID(dataInputStream);
+        List<Integer> seatIDs_sorted = getSeatID(dataInputStream);
         Collections.sort(seatIDs_sorted);
         int mySeat = 0;
-        for (int i=0; i<seatIDs_sorted.size()-1;i++){
-            if(seatIDs_sorted.get(i+1)-seatIDs_sorted.get(i)!=1){
-                mySeat = seatIDs_sorted.get(i+1)-1;
+        for (int i = 0; i < seatIDs_sorted.size() - 1; i++) {
+            if (seatIDs_sorted.get(i + 1) - seatIDs_sorted.get(i) != 1) {
+                mySeat = seatIDs_sorted.get(i) + 1;
             }
         }
         return "My seatID is: " + mySeat;
