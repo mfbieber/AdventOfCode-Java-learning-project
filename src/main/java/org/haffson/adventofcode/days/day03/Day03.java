@@ -2,10 +2,10 @@ package org.haffson.adventofcode.days.day03;
 
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.haffson.adventofcode.utils.DataLoader;
 import org.springframework.stereotype.Component;
+import org.springframework.lang.NonNull;
 
-import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -14,20 +14,21 @@ import java.util.*;
 @Component
 public class Day03 implements Days {
 
-    /**
-     * The puzzle status {@code HashMap}
-     */
+    /// get passwordDatabase
     private final Map<Integer, ProblemStatusEnum> problemStatus;
+    private final List<String> grid;
 
-    // Read content of input file
-    public InputStream resource = getClass().getResourceAsStream("/data/day03/input_day03.txt");
-    private final String[] data = getRawDataAsArray(resource);
-
-    @Autowired
-    Day03() {
+    Day03(@NonNull String filename) {
+        //get data
+        this.grid = DataLoader.getRawDataAsList("/day03/" + filename, "\n");
+        // set problemstatus
         this.problemStatus = new HashMap<>();
         this.problemStatus.put(1, ProblemStatusEnum.SOLVED);
         this.problemStatus.put(2, ProblemStatusEnum.SOLVED);
+    }
+
+    public List<String> getGrid() {
+        return grid;
     }
 
     @Override
@@ -42,74 +43,42 @@ public class Day03 implements Days {
 
     @Override
     public String firstPart() {
-        return "Trees encountered: " + getNumTrees(data);
+        return "Trees encountered: " + getNumberTrees(grid);
     }
 
     @Override
     public String secondPart() {
-        return "Product of all slopes: " + getProduct(data);
-    }
-
-    public String[] getTestData() {
-        final String test = "..##.......\n" +
-                "#...#...#..\n" +
-                ".#....#..#.\n" +
-                "..#.#...#.#\n" +
-                ".#...##..#.\n" +
-                "..#.##.....\n" +
-                ".#.#.#....#\n" +
-                ".#........#\n" +
-                "#.##...#...\n" +
-                "#...##....#\n" +
-                ".#..#...#.#";
-
-        return test.split("\\n");
-    }
-
-    public String[] getRawDataAsArray(InputStream resource) {
-        ArrayList<String> rawData;
-        try (Scanner scan = new Scanner(resource)) {
-            rawData = new ArrayList<>();
-
-            while (scan.hasNextLine()) {
-                rawData.add(scan.nextLine());
-            }
-        }
-
-        String[] rawData_array = new String[rawData.size()];
-        for (int i = 0; i < rawData.size(); i++) rawData_array[i] = rawData.get(i);
-
-        return rawData_array;
+        return "Product of all slopes: " + getProduct(grid);
     }
 
     //    method for answer of puzzle day03 part 1
-//    search for number of trees encountered
-    public String getNumTrees(String[] data) {
+    //    search for number of trees encountered
+    private int getNumberTrees(List<String> grid) {
 
-        int sizeX = data[0].length(); // vertical direction
-        int sizeY = data.length;      // horizontal direction
-        int numTrees = 0; // number of trees encountered
+        int sizeX = grid.get(0).length(); // vertical direction
+        int sizeY = grid.size();    // horizontal direction
+        int numberTrees = 0; // number of trees encountered
         char square = 0; // each coordinate on grid is called square
 
         for (int i = 1; i < sizeY; i++) {
             // every step: 1 square vertical, 3 squares horizontal
             if ((i * 3) <= sizeX) {
-                square = data[i * 1].charAt(i * 3);
+                square = grid.get(i * 1).charAt(i * 3);
             }
             // as in horizontal direction the same pattern repeats to the right many times, use modulo in if-condition
             else if (i * 3 > sizeX) {
                 int repeatedPosition = (i * 3) % sizeX;
-                square = data[i * 1].charAt(repeatedPosition);
+                square = grid.get(i * 1).charAt(repeatedPosition);
             }
             if (square == '#') {
-                numTrees++;
+                numberTrees++;
             }
         }
-        return "" + numTrees;
+        return numberTrees;
     }
 
-    // method for answer of puzzle day03 part 1
-    public String getProduct(String[] data) {
+    // method for answer of puzzle day03 part 2
+    private long getProduct(List<String> grid) {
         // 5 slopes need to be checked
         int[] stepY = new int[5];
         int[] stepX = new int[5];
@@ -126,20 +95,20 @@ public class Day03 implements Days {
         stepX[3] = 7;
         stepX[4] = 1;
 
-        int sizeX = data[0].length(); // horizontal direction
-        int sizeY = data.length;      // vertical direction
+        int sizeX = grid.get(0).length(); // horizontal direction
+        int sizeY = grid.size();      // vertical direction
         long product = 1; // number of product of all trees with all slopes
 
         for (int j = 0; j < stepY.length; j++) {
-            int numTrees = 0; // number of trees encountered
+            int numberTrees = 0; // number of trees encountered
 
             for (int i = 1; i * stepY[j] < sizeY; i++) {
-                if (data[i * stepY[j]].charAt((i * stepX[j]) % sizeX) == '#') {
-                    numTrees++;
+                if (grid.get(i * stepY[j]).charAt((i * stepX[j]) % sizeX) == '#') {
+                    numberTrees++;
                 }
             }
-            product *= numTrees;
+            product *= numberTrees;
         }
-        return "" + product;
+        return product;
     }
 }

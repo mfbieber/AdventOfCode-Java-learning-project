@@ -2,10 +2,10 @@ package org.haffson.adventofcode.days.day04;
 
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.haffson.adventofcode.utils.DataLoader;
 import org.springframework.stereotype.Component;
+import org.springframework.lang.NonNull;
 
-import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -14,25 +14,21 @@ import java.util.*;
 @Component
 public class Day04 implements Days {
 
-    /**
-     * The puzzle status {@code HashMap}
-     */
+    // get passwordDatabase
     private final Map<Integer, ProblemStatusEnum> problemStatus;
+    private final List<String> batchFile;
 
-    // Read content of test file (puzzle part 1)
-    public InputStream testResource = getClass().getResourceAsStream("/data/day04/day04_testdata.txt");
-
-    // Read content of test file (puzzle part 2)
-    public InputStream testResource2 = getClass().getResourceAsStream("/data/day04/day04_testdata2.txt");
-
-    // Read content of input file (real data)
-    public InputStream resource = getClass().getResourceAsStream("/data/day04/input_day04.txt");
-
-    @Autowired
-    Day04() {
+    Day04(@NonNull String filename) {
+        //get data
+        this.batchFile = DataLoader.getRawDataAsList("/day04/" + filename, "\n\n");
+        // set problemstatus
         this.problemStatus = new HashMap<>();
         this.problemStatus.put(1, ProblemStatusEnum.SOLVED);
         this.problemStatus.put(2, ProblemStatusEnum.SOLVED);
+    }
+
+    public List<String> getPasswordDatabase() {
+        return batchFile;
     }
 
     // get current Day
@@ -49,38 +45,19 @@ public class Day04 implements Days {
     // get answer puzzle day04.1:
     @Override
     public String firstPart() {
-        return "Number of valid passports: " + getNumberValidPassports(getRawData(resource));
+        return "Number of valid passports: " + getNumberValidPassports(batchFile);
     }
 
     // get answer puzzle day04.2:
     @Override
     public String secondPart() {
-        return "Number of valid passports: " + getRestrictedNumberValidPassports(getRawData(resource));
-    }
-
-    // read raw data and transform it to String[]
-    public String[] getRawData(InputStream resource) {
-
-        ArrayList<String> rawData;
-        try (Scanner scan = new Scanner(resource)) {
-            rawData = new ArrayList<>();
-
-            while (scan.hasNext()) {
-                scan.useDelimiter("\n\n");
-                rawData.add(scan.next());
-            }
-        }
-
-        String[] rawData_array = new String[rawData.size()];
-        for (int i = 0; i < rawData.size(); i++) rawData_array[i] = rawData.get(i);
-
-        return rawData_array;
+        return "Number of valid passports: " + getRestrictedNumberValidPassports(batchFile);
     }
 
     // answer to day04.1
-    public int getNumberValidPassports(String[] rawData_array) {
+    public int getNumberValidPassports(List<String> batchFile) {
         int numberOfValidPassports = 0;
-        for (String passport : rawData_array) {
+        for (String passport : batchFile) {
             Set<String> validKeys = new HashSet<>(Arrays.asList("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"));
             String[] splitPassport = passport.split("[\\s+]");
             for (String field : splitPassport) {
@@ -95,10 +72,10 @@ public class Day04 implements Days {
     }
 
     // answer to day04.2
-    public int getRestrictedNumberValidPassports(String[] rawData_array) {
+    public int getRestrictedNumberValidPassports(List<String> batchFile) {
         int numberOfValidPassports = 0;
 
-        for (String passport : rawData_array) {
+        for (String passport : batchFile) {
             int count = 0;
             Map<String, String> passports = new HashMap<>();
             Set<String> validKeys = new HashSet<>(Arrays.asList("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"));
@@ -111,26 +88,26 @@ public class Day04 implements Days {
             // check only passports that contain all keys
             if (validKeys.size() == 0) {
                 // check birth year
-                int byr = Integer.parseInt(passports.get("byr"));
-                if (1920 <= byr && byr <= 2002) {
+                int birthYear = Integer.parseInt(passports.get("byr"));
+                if (1920 <= birthYear && birthYear <= 2002) {
                     count++;
                 }
                 // check issue year
-                int iyr = Integer.parseInt(passports.get("iyr"));
-                if (2010 <= iyr && iyr <= 2020) {
+                int issueYear = Integer.parseInt(passports.get("iyr"));
+                if (2010 <= issueYear && issueYear <= 2020) {
                     count++;
                 }
                 // check expiration year
-                int eyr = Integer.parseInt(passports.get("eyr"));
-                if (2020 <= eyr && eyr <= 2030) {
+                int expirationYear = Integer.parseInt(passports.get("eyr"));
+                if (2020 <= expirationYear && expirationYear <= 2030) {
                     count++;
                 }
                 // check body height
-                String hgt = passports.get("hgt");
+                String height = passports.get("hgt");
                 // accept only Strings that have more than 3 letters
-                if (hgt.length() > 3) {
-                    String unit = hgt.substring(hgt.length() - 2);
-                    int bodyheight = Integer.parseInt(hgt.substring(0, (hgt.length() - 2)));
+                if (height.length() > 3) {
+                    String unit = height.substring(height.length() - 2);
+                    int bodyheight = Integer.parseInt(height.substring(0, (height.length() - 2)));
                     if (unit.equals("cm")) {
                         if (bodyheight >= 150 && bodyheight <= 193) {
                             count++;
@@ -142,21 +119,21 @@ public class Day04 implements Days {
                     }
                 }
                 // check hair color
-                String hcl = passports.get("hcl");
-                String hclHash = hcl.substring(0, 1);
-                String haircolorID = hcl.substring(1);
+                String hairColor = passports.get("hcl");
+                String hclHash = hairColor.substring(0, 1);
+                String haircolorID = hairColor.substring(1);
                 if (hclHash.equals("#") && haircolorID.length() == 6 && haircolorID.matches("[0-9a-f]+")) {
                     count++;
                 }
                 // check eye color
-                String ecl = passports.get("ecl");
+                String eyeColor = passports.get("ecl");
                 List<String> colors = Arrays.asList("amb", "blu", "brn", "gry", "grn", "hzl", "oth");
-                if (colors.contains(ecl)) {
+                if (colors.contains(eyeColor)) {
                     count++;
                 }
                 // check passport ID
-                String pid = passports.get("pid");
-                if (pid.length() == 9 && pid.matches("[0-9]+")) {
+                String passportID = passports.get("pid");
+                if (passportID.length() == 9 && passportID.matches("[0-9]+")) {
                     count++;
                 }
                 // if all keys are present and all values are valid to above 7 rules then count == 7
