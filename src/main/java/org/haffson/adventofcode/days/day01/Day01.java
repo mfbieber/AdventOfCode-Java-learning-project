@@ -1,11 +1,12 @@
 package org.haffson.adventofcode.days.day01;
 
+import org.haffson.adventofcode.utils.DataLoader;
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
 import org.springframework.stereotype.Component;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Implementation for <i>Day 1: Chronal Calibration</i>.
@@ -13,20 +14,20 @@ import java.util.*;
 @Component
 public class Day01 implements Days {
 
-    /**
-     * The puzzle status {@code HashMap}
-     */
     private final Map<Integer, ProblemStatusEnum> problemStatus;
+    private final List<Integer> numbers;
 
-    // Read content of input file
-    public InputStream resource = getClass().getResourceAsStream("/data/day01/input_day01.txt");
-    private final Integer[] data = getRawData(resource);
-
-    //    @Autowired
-    Day01() {
+    public Day01() {
+        //get data
+        this.numbers = DataLoader.getDataDay01("/day01/input_day01.txt", "\n");
+        // set ProblemStatus
         this.problemStatus = new HashMap<>();
         this.problemStatus.put(1, ProblemStatusEnum.SOLVED);
         this.problemStatus.put(2, ProblemStatusEnum.SOLVED);
+    }
+
+    public List<Integer> getNumbers() {
+        return numbers;
     }
 
     @Override
@@ -41,70 +42,53 @@ public class Day01 implements Days {
 
     @Override
     public String firstPart() {
-        return "Product 1: " + calculateNumber1(data);
+        return "Product 1: " + calculateProduct_Part1(numbers);
     }
 
     @Override
     public String secondPart() {
-        try {
-            return "Product 2: " + calculateNumber2(data);
-        } catch (FileNotFoundException e) {
-            return "error";
-        }
+        return "Product 2: " + calculateProduct_Part2(numbers);
+    }
+
+
+    // utility method: subtract numbers by 2020
+    private List<Integer> getSubtractedBy2020(List<Integer> numbers) {
+        return numbers.stream()
+                .map(value -> 2020 - value)
+                .collect(Collectors.toList());
     }
 
     /**
      * Primary method for Day 1, Part 1.
      * Calculates the product of two specific numbers from a list
      *
-     * @return the final frequency
+     * @return the product
      */
-    // read raw data and transform it to String[]
-    public Integer[] getRawData(InputStream resource) {
-        ArrayList<String> rawData;
-        try (Scanner scan = new Scanner(resource)) {
-            rawData = new ArrayList<>();
-
-            while (scan.hasNextLine()) {
-                rawData.add(scan.nextLine());
-            }
-        }
-        Integer[] rawData_array = new Integer[rawData.size()];
-        for (int i = 0; i < rawData.size(); i++) rawData_array[i] = Integer.parseInt(rawData.get(i));
-
-        return rawData_array;
+    private int calculateProduct_Part1(List<Integer> numbers) {
+        // check for intersection of two lists
+        numbers.retainAll(getSubtractedBy2020(numbers));
+        // product of "intersected" values is the puzzle's answer!
+        return numbers.get(0) * numbers.get(1);
     }
 
-    private int calculateNumber1(Integer[] rawData_array) {
-        List<Integer> data = new ArrayList<>(rawData_array.length);
-        data.addAll(Arrays.asList(rawData_array));
-        // create arraylist that is subtracted by 2020
-        ArrayList<Integer> data2 = new ArrayList<>();
-        for (Integer datum : data) {
-            data2.add(2020 - datum);
-        }
-        // check for intersection of two arraylists
-        data.retainAll(data2);
-        // multiplication of "intersected" values is the puzzle's answer!
-        return data.get(0) * data.get(1);
-    }
+    /**
+     * Primary method for Day 1, Part 2.
+     * Calculates the product of two specific numbers from a list
+     *
+     * @return the product
+     */
+    private int calculateProduct_Part2(List<Integer> numbers) {
+        List<Integer> numbersSubtractedBy2020 = getSubtractedBy2020(numbers);
 
-    private int calculateNumber2(Integer[] rawData_array) throws FileNotFoundException {
-        List<Integer> data = new ArrayList<>(rawData_array.length);
-        data.addAll(Arrays.asList(rawData_array));
-        // create arraylist that is subtracted by 2020
-        ArrayList<Integer> data2 = new ArrayList<>();
-        for (Integer datum : data) {
-            data2.add(2020 - datum);
-        }
-        List<Integer> data3 = new ArrayList<>();
-        for (int k = 0; k < data.size(); k++) {
-            for (Integer datum : data) {
-                data3.add(data.get(k) + datum);
+        List<Integer> tempData = new ArrayList<>();
+        for (int k = 0; k < numbers.size(); k++) {
+            for (Integer datum : numbers) {
+                tempData.add(numbers.get(k) + datum);
             }
         }
-        data2.retainAll(data3);
-        // multiplication of "intersected" values is the puzzle's answer!
-        return (2020 - data2.get(0)) * (2020 - data2.get(1)) * (2020 - data2.get(2));
+        // check for intersection of two lists
+        numbersSubtractedBy2020.retainAll(tempData);
+        // product of "intersected" values is the puzzle's answer!
+        return (2020 - numbersSubtractedBy2020.get(0)) * (2020 - numbersSubtractedBy2020.get(1)) * (2020 - numbersSubtractedBy2020.get(2));
     }
 }

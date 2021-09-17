@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
+
 @RunWith(SpringRunner.class)
 public class Day01Test {
 
@@ -14,6 +15,17 @@ public class Day01Test {
         int expectedResult = 1;
         int actualResult = day01.getDay();
         Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void test_rawDataNotEmpty() {
+        //arrange
+        Day01 day01 = new Day01();
+        Integer expectedSize = 200;
+        //act
+        Integer actualSize = day01.getNumbers().size();
+        //assert
+        Assert.assertEquals(expectedSize, actualSize);
     }
 
     @Test

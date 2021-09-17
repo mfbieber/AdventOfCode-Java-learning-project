@@ -54,7 +54,7 @@ public class AdventOfCodeController {
      */
     @GetMapping
     public Resource getResultForASpecificDayAndPuzzlePart(@RequestParam(value = "day", defaultValue = "1") Integer day,
-                                                          @RequestParam(value = "part", defaultValue = "1") Integer part) {
+                                                          @RequestParam(value = "part", defaultValue = "1") Integer part){
 
         logger.info("The results for day " + day + ", part " + part + " have been requested.");
 

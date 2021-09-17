@@ -4,7 +4,9 @@ import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.controller.AdventOfCodeController;
 import org.haffson.adventofcode.days.Days;
 import org.haffson.adventofcode.exceptions.PuzzleNotSolvedYetException;
+import org.haffson.adventofcode.utils.CheckStringisEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -43,7 +45,7 @@ public class AdventOfCodeService {
      * @return a {@code String} with the result for the puzzle, or in case it has not been implemented,
      * an {@link PuzzleNotSolvedYetException} is thrown.
      */
-    public String getResultsForASpecificDayAndPuzzlePart(Integer day, Integer part) {
+    public String getResultsForASpecificDayAndPuzzlePart(@NonNull Integer day, @NonNull Integer part) {
 
         Objects.requireNonNull(day, "day is null");
         Objects.requireNonNull(part, "part is null");
@@ -52,9 +54,9 @@ public class AdventOfCodeService {
         Days thisDaysClass = findDayForDay(day);
         if (!isProblemSolvedForPart(thisDaysClass, part)) {
             throw new PuzzleNotSolvedYetException(new Throwable());
-        } else if ((part).equals(1)) {
+        } else if (part==1) {
             return thisDaysClass.firstPart();
-        } else if ((part).equals(2)) {
+        } else if (part==2) {
             return thisDaysClass.secondPart();
         } else {
             return "This puzzle has not been solved yet.";
