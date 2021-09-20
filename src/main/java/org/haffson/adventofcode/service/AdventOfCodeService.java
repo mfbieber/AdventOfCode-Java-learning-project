@@ -54,9 +54,9 @@ public class AdventOfCodeService {
         Days thisDaysClass = findDayForDay(day);
         if (!isProblemSolvedForPart(thisDaysClass, part)) {
             throw new PuzzleNotSolvedYetException(new Throwable());
-        } else if (part==1) {
+        } else if (Objects.equals(part,1)) {
             return thisDaysClass.firstPart();
-        } else if (part==2) {
+        } else if (Objects.equals(part,2)) {
             return thisDaysClass.secondPart();
         } else {
             return "This puzzle has not been solved yet.";

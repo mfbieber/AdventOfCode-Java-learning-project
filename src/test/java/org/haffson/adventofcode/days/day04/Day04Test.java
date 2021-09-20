@@ -10,7 +10,7 @@ public class Day04Test {
     public void test_getRawDataArray2() {
         Day04 day04 = new Day04("day04_testdata.txt");
         Integer expected = 4;
-        Integer actual = day04.getPasswordDatabase().size();
+        Integer actual = day04.getBatchFile().size();
         Assert.assertEquals(expected, actual);
     }
 
