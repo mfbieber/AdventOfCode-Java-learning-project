@@ -3,6 +3,7 @@ package org.haffson.adventofcode.days.day04;
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
 import org.haffson.adventofcode.utils.DataLoader;
+import org.haffson.adventofcode.utils.ProblemStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.lang.NonNull;
 
@@ -14,7 +15,6 @@ import java.util.*;
 @Component
 public class Day04 implements Days {
 
-    // get passwordDatabase
     private final Map<Integer, ProblemStatusEnum> problemStatus;
     private final List<String> batchFile;
 
@@ -22,12 +22,11 @@ public class Day04 implements Days {
         //get data
         this.batchFile = DataLoader.getRawDataAsList("/day04/" + filename, "\n\n");
         // set problemstatus
-        this.problemStatus = new HashMap<>();
-        this.problemStatus.put(1, ProblemStatusEnum.SOLVED);
-        this.problemStatus.put(2, ProblemStatusEnum.SOLVED);
+        this.problemStatus = ProblemStatus.getProblemStatusMap(1, 2,
+                ProblemStatusEnum.SOLVED, ProblemStatusEnum.SOLVED);
     }
 
-    public List<String> getPasswordDatabase() {
+    public List<String> getBatchFile() {
         return batchFile;
     }
 

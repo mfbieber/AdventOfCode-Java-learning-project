@@ -3,6 +3,7 @@ package org.haffson.adventofcode.days.day01;
 import org.haffson.adventofcode.utils.DataLoader;
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
+import org.haffson.adventofcode.utils.ProblemStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -17,13 +18,12 @@ public class Day01 implements Days {
     private final Map<Integer, ProblemStatusEnum> problemStatus;
     private final List<Integer> numbers;
 
-    public Day01() {
+    public Day01(String filename) {
         //get data
-        this.numbers = DataLoader.getDataDay01("/day01/input_day01.txt", "\n");
+        this.numbers = DataLoader.getDataDay01("/day01/" + filename, "\n");
         // set ProblemStatus
-        this.problemStatus = new HashMap<>();
-        this.problemStatus.put(1, ProblemStatusEnum.SOLVED);
-        this.problemStatus.put(2, ProblemStatusEnum.SOLVED);
+        this.problemStatus = ProblemStatus.getProblemStatusMap(1, 2,
+                ProblemStatusEnum.SOLVED, ProblemStatusEnum.SOLVED);
     }
 
     public List<Integer> getNumbers() {
