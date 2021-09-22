@@ -1,69 +1,60 @@
 package org.haffson.adventofcode.days.day02;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.haffson.adventofcode.utils.DataLoader;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-//@RunWith(SpringRunner.class)
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 public class Day02Test {
+
+    DataLoader dataLoader = new DataLoader();
+    List<String> passwordDatabase = new ArrayList<>(Arrays.asList("1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"));
+
+    @BeforeEach
+    void setup() {
+        dataLoader = mock(DataLoader.class);
+    }
 
     @Test
     public void testGetDay() {
-        Day02 day02 = new Day02("input_day02.txt");
+        when(dataLoader.getDataDay02(anyString(), anyString())).thenReturn(passwordDatabase);
+        Day02 day02 = new Day02("input_day02.txt", dataLoader);
         int expectedResult = 2;
         int actualResult = day02.getDay();
-        Assert.assertEquals(expectedResult, actualResult);
+        assertThat(actualResult).isEqualTo(expectedResult);
     }
 
-    // First part test data
+    // First part
     @Test
-    public void test_testData_firstPart_returnsExpectedResult() {
-        // arrange
-        Day02 day02 = new Day02("day02_testdata.txt");
+    public void test_firstPart_returnsExpectedResult() {
+        //arrange
+        when(dataLoader.getDataDay02(anyString(), anyString())).thenReturn(passwordDatabase);
+        Day02 day02 = new Day02("input_day02.txt", dataLoader);
         String expectedResult = "Part 1 answer: " + 2;
         //act
         String actualResult = day02.firstPart();
         //assert
-        Assert.assertEquals(expectedResult, actualResult);
+        assertThat(actualResult).isEqualTo(expectedResult);
     }
 
-    // First part raw data from file (real puzzle data)
+    // Second part
     @Test
-    public void test_firstPart_returnsExpectedResult() {
+    public void test_secondPart_returnsExpectedResult() {
         //arrange
-        Day02 day02 = new Day02("input_day02.txt");
-        String expectedResult = "Part 1 answer: " + 607;
-        //act
-        String actualResult = day02.firstPart();
-        //assert
-        Assert.assertEquals(expectedResult, actualResult);
-    }
-
-    // Second part test data
-    @Test
-    public void test_testData_secondPart_returnsExpectedResult() {
-        //arrange
-        Day02 day02 = new Day02("day02_testdata.txt");
-//        day02.addInput(rawData);
+        when(dataLoader.getDataDay02(anyString(), anyString())).thenReturn(passwordDatabase);
+        Day02 day02 = new Day02("input_day02.txt", dataLoader);
         String expectedResult = "Part 2 answer: " + 1;
         //act
         String actualResult = day02.secondPart();
         //assert
-        Assert.assertEquals(expectedResult, actualResult);
-    }
-
-    // Second part raw data from file (real puzzle data)
-    @Test
-    public void test_secondPart_returnsExpectedResult() {
-        //arrange
-        Day02 day02 = new Day02("input_day02.txt");
-        String expectedResult = "Part 2 answer: " + 321;
-        //act
-        String actualResult = day02.secondPart();
-        //assert
-        Assert.assertEquals(expectedResult, actualResult);
+        assertThat(actualResult).isEqualTo(expectedResult);
     }
 }

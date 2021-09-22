@@ -4,6 +4,7 @@ import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
 import org.haffson.adventofcode.utils.DataLoader;
 import org.haffson.adventofcode.utils.ProblemStatus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.lang.NonNull;
 
@@ -18,9 +19,9 @@ public class Day03 implements Days {
     private final Map<Integer, ProblemStatusEnum> problemStatus;
     private final List<String> grid;
 
-    Day03(@NonNull String filename) {
+    Day03(@Value("filename") String filename, DataLoader dataLoader) {
         //get data
-        this.grid = DataLoader.getRawDataAsList("/day03/" + filename, "\n");
+        this.grid = dataLoader.getDataDay03("/day03/" + filename, "\n");
         // set problemstatus
         this.problemStatus = ProblemStatus.getProblemStatusMap(1, 2,
                 ProblemStatusEnum.SOLVED, ProblemStatusEnum.SOLVED);
@@ -52,7 +53,7 @@ public class Day03 implements Days {
 
     //    method for answer of puzzle day03 part 1
     //    search for number of trees encountered
-    private int getNumberTrees(List<String> grid) {
+    private int getNumberTrees(final List<String> grid) {
 
         int sizeX = grid.get(0).length(); // vertical direction
         int sizeY = grid.size();    // horizontal direction
@@ -77,7 +78,7 @@ public class Day03 implements Days {
     }
 
     // method for answer of puzzle day03 part 2
-    private long getProduct(List<String> grid) {
+    private long getProduct(final List<String> grid) {
         // 5 slopes need to be checked
         int[] stepY = new int[5];
         int[] stepX = new int[5];

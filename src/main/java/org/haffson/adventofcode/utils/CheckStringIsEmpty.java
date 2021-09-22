@@ -1,20 +1,17 @@
 package org.haffson.adventofcode.utils;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 
-@Component
-public class CheckStringisEmpty {
+public class CheckStringIsEmpty {
 
-    private CheckStringisEmpty() {
+    private CheckStringIsEmpty() {
 
     }
 
     public static String requireNonNullAndNonEmpty(String string) {
         if (StringUtils.isEmpty(string)) {
             throw new IllegalArgumentException("The string is null or empty");
-        } else {
-            return string;
         }
+        return string;
     }
 }

@@ -2,13 +2,16 @@ package org.haffson.adventofcode.days.day02;
 
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
-import org.haffson.adventofcode.utils.CheckStringisEmpty;
+import org.haffson.adventofcode.utils.CheckStringIsEmpty;
 import org.haffson.adventofcode.utils.DataLoader;
 import org.haffson.adventofcode.utils.ProblemStatus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -20,9 +23,9 @@ public class Day02 implements Days {
     private final Map<Integer, ProblemStatusEnum> problemStatus;
     private final List<String> passwordDatabase;
 
-    Day02(@NonNull String filename) {
+    Day02(@Value("filename") String filename, DataLoader dataLoader) {
         //get data
-        this.passwordDatabase = DataLoader.getRawDataAsList("/day02/" + filename, "\n");
+        this.passwordDatabase = dataLoader.getDataDay02("/day02/" + filename, "\n");
         // set problemstatus
         this.problemStatus = ProblemStatus.getProblemStatusMap(1, 2,
                 ProblemStatusEnum.SOLVED, ProblemStatusEnum.SOLVED);
@@ -65,8 +68,8 @@ public class Day02 implements Days {
         public Data(int min, int max, @NonNull String letter, @NonNull String password) {
             this.min = min;
             this.max = max;
-            this.letter = CheckStringisEmpty.requireNonNullAndNonEmpty(letter);
-            this.password = CheckStringisEmpty.requireNonNullAndNonEmpty(password);
+            this.letter = CheckStringIsEmpty.requireNonNullAndNonEmpty(letter);
+            this.password = CheckStringIsEmpty.requireNonNullAndNonEmpty(password);
         }
 
         public static List<Data> getPasswordData(List<String> passwordDatabase) {
@@ -94,7 +97,7 @@ public class Day02 implements Days {
      *
      * @return the number of correct passwords in list
      */
-    public int getNumberPassword1(List<String> passwordDatabase) {
+    public int getNumberPassword1(final List<String> passwordDatabase) {
         List<Data> data = Data.getPasswordData(passwordDatabase);
         int countCorrPasswords = 0; // number of correct passwords in list
 
@@ -113,7 +116,7 @@ public class Day02 implements Days {
         return countCorrPasswords;
     }
 
-    public int getNumberPassword2(List<String> passwordDatabase) {
+    public int getNumberPassword2(final List<String> passwordDatabase) {
 
         List<Data> data = Data.getPasswordData(passwordDatabase);
         int countCorrPasswords = 0; // answer to puzzle day 2.2: number of correct passwords in list
@@ -131,5 +134,4 @@ public class Day02 implements Days {
         }
         return countCorrPasswords;
     }
-
 }

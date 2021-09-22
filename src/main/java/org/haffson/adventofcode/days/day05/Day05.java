@@ -1,14 +1,17 @@
 package org.haffson.adventofcode.days.day05;
 
-import org.haffson.adventofcode.utils.CheckStringisEmpty;
-import org.haffson.adventofcode.utils.DataLoader;
-import org.haffson.adventofcode.utils.ProblemStatus;
-import org.springframework.lang.NonNull;
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
+import org.haffson.adventofcode.utils.CheckStringIsEmpty;
+import org.haffson.adventofcode.utils.DataLoader;
+import org.haffson.adventofcode.utils.ProblemStatus;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -17,9 +20,9 @@ public class Day05 implements Days {
     private final Map<Integer, ProblemStatusEnum> problemStatus;
     private final List<String> boardingPasses;
 
-    Day05(@NonNull String filename) {
+    Day05(@Value("filename") String filename, DataLoader dataLoader) {
         //get data
-        this.boardingPasses = DataLoader.getRawDataAsList("/day05/" + filename, "\n");
+        this.boardingPasses = dataLoader.getDataDay05("/day05/" + filename, "\n");
         // set problemstatus
         this.problemStatus = ProblemStatus.getProblemStatusMap(1, 2,
                 ProblemStatusEnum.SOLVED, ProblemStatusEnum.SOLVED);
@@ -31,8 +34,8 @@ public class Day05 implements Days {
 
     // answers puzzle 5
     // binary space partitioning principle
-    public int getRowOrCol(@NonNull String seatName, int maxNumberRowsOrCols, char character1, char character2) {
-        CheckStringisEmpty.requireNonNullAndNonEmpty(seatName);
+    private int getRowOrCol(@NonNull String seatName, int maxNumberRowsOrCols, char character1, char character2) {
+        CheckStringIsEmpty.requireNonNullAndNonEmpty(seatName);
         int numMin = 0;
         int numMax = maxNumberRowsOrCols - 1;
         int rowOrCol = 0;
@@ -56,11 +59,12 @@ public class Day05 implements Days {
                 rowOrCol = numMax;
             }
         }
+        System.out.println(rowOrCol);
         return rowOrCol;
     }
 
     // seatID is row*8 + column
-    private List<Integer> getSeatID(@NonNull List<String> boardingPasses) {
+    private List<Integer> getSeatID(@NonNull final List<String> boardingPasses) {
         return boardingPasses.stream()
                 .map(seat -> getRowOrCol(seat.substring(0, 7), 128, 'F', 'B') * 8
                         + getRowOrCol(seat.substring(7), 8, 'L', 'R'))

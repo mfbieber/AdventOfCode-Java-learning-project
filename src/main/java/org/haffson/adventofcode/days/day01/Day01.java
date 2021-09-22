@@ -4,10 +4,12 @@ import org.haffson.adventofcode.utils.DataLoader;
 import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
 import org.haffson.adventofcode.utils.ProblemStatus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
 
 /**
  * Implementation for <i>Day 1: Chronal Calibration</i>.
@@ -18,9 +20,9 @@ public class Day01 implements Days {
     private final Map<Integer, ProblemStatusEnum> problemStatus;
     private final List<Integer> numbers;
 
-    public Day01(String filename) {
-        //get data
-        this.numbers = DataLoader.getDataDay01("/day01/" + filename, "\n");
+    public Day01(@Value("filename") String filename, DataLoader dataLoader) {
+        // get data
+        this.numbers = dataLoader.getDataDay01("/day01/" + filename, "\n");
         // set ProblemStatus
         this.problemStatus = ProblemStatus.getProblemStatusMap(1, 2,
                 ProblemStatusEnum.SOLVED, ProblemStatusEnum.SOLVED);
@@ -64,7 +66,7 @@ public class Day01 implements Days {
      *
      * @return the product
      */
-    private int calculateProduct_Part1(List<Integer> numbers) {
+    private int calculateProduct_Part1(final List<Integer> numbers) {
         // check for intersection of two lists
         numbers.retainAll(getSubtractedBy2020(numbers));
         // product of "intersected" values is the puzzle's answer!
@@ -77,7 +79,7 @@ public class Day01 implements Days {
      *
      * @return the product
      */
-    private int calculateProduct_Part2(List<Integer> numbers) {
+    private int calculateProduct_Part2(final List<Integer> numbers) {
         List<Integer> numbersSubtractedBy2020 = getSubtractedBy2020(numbers);
 
         List<Integer> tempData = new ArrayList<>();
