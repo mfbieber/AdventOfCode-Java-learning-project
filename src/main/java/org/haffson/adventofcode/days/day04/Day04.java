@@ -4,6 +4,7 @@ import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
 import org.haffson.adventofcode.utils.DataLoader;
 import org.haffson.adventofcode.utils.ProblemStatus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.lang.NonNull;
 
@@ -18,9 +19,9 @@ public class Day04 implements Days {
     private final Map<Integer, ProblemStatusEnum> problemStatus;
     private final List<String> batchFile;
 
-    Day04(@NonNull String filename) {
+    Day04(@Value("filename") String filename, DataLoader dataLoader) {
         //get data
-        this.batchFile = DataLoader.getRawDataAsList("/day04/" + filename, "\n\n");
+        this.batchFile = dataLoader.getDataDay04("/day04/" + filename, "\n\n");
         // set problemstatus
         this.problemStatus = ProblemStatus.getProblemStatusMap(1, 2,
                 ProblemStatusEnum.SOLVED, ProblemStatusEnum.SOLVED);
@@ -54,7 +55,7 @@ public class Day04 implements Days {
     }
 
     // answer to day04.1
-    public int getNumberValidPassports(List<String> batchFile) {
+    public int getNumberValidPassports(final List<String> batchFile) {
         int numberOfValidPassports = 0;
         for (String passport : batchFile) {
             Set<String> validKeys = new HashSet<>(Arrays.asList("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"));
@@ -71,7 +72,7 @@ public class Day04 implements Days {
     }
 
     // answer to day04.2
-    public int getRestrictedNumberValidPassports(List<String> batchFile) {
+    public int getRestrictedNumberValidPassports(final List<String> batchFile) {
         int numberOfValidPassports = 0;
 
         for (String passport : batchFile) {

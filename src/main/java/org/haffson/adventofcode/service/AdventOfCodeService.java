@@ -4,7 +4,6 @@ import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.controller.AdventOfCodeController;
 import org.haffson.adventofcode.days.Days;
 import org.haffson.adventofcode.exceptions.PuzzleNotSolvedYetException;
-import org.haffson.adventofcode.utils.CheckStringisEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;

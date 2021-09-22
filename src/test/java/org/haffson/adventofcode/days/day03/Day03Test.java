@@ -1,68 +1,69 @@
 package org.haffson.adventofcode.days.day03;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.haffson.adventofcode.utils.DataLoader;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-//@RunWith(SpringRunner.class)
+
 public class Day03Test {
+
+    DataLoader dataLoader = new DataLoader();
+    List<String> grid = new ArrayList<>(Arrays.asList("..##.......", "#...#...#..", ".#....#..#.",
+            "..#.#...#.#", ".#...##..#.", "..#.##.....", ".#.#.#....#", ".#........#",
+            "#.##...#...", "#...##....#", ".#..#...#.#"));
+
+    @BeforeEach
+    void setup() {
+        dataLoader = mock(DataLoader.class);
+    }
 
     // Test getDay()
     @Test
     public void testGetDay() {
-        Day03 day03 = new Day03("input_day03.txt");
+        when(dataLoader.getDataDay03(anyString(), anyString())).thenReturn(grid);
+        Day03 day03 = new Day03("input_day03.txt", dataLoader);
         int expectedDay = 3;
         int actualDay = day03.getDay();
-        Assert.assertEquals(expectedDay, actualDay);
+        assertEquals(expectedDay, actualDay);
     }
 
     // Test getTestData()
     @Test
     public void testGetTestData() {
-        Day03 day03 = new Day03("day03_testdata.txt");
+        when(dataLoader.getDataDay03(anyString(), anyString())).thenReturn(grid);
+        Day03 day03 = new Day03("day03_testdata.txt", dataLoader);
         List<String> grid = day03.getGrid();
         String expectedSquare = ".";
         String actualSquare = Character.toString(grid.get(0).charAt(0));
-        Assert.assertEquals(expectedSquare, actualSquare);
+        assertEquals(expectedSquare, actualSquare);
     }
 
-    // Test getNumberTrees() with testData
-    @Test
-    public void testGetNumberTrees() {
-        Day03 day03 = new Day03("day03_testdata.txt");
-        String expectedTrees = "Trees encountered: " + 7;
-        String actualTrees = day03.firstPart();
-        Assert.assertEquals(expectedTrees, actualTrees);
-    }
-
-    // Test getNumberTrees() with real data (input_day03.txt)
+    // puzzle day03 part 1 Test getNumberTrees()
     @Test
     public void testGetNumberTreesRealData() {
-        Day03 day03 = new Day03("input_day03.txt");
-        String expectedTrees = "Trees encountered: " + 159;
+        when(dataLoader.getDataDay03(anyString(), anyString())).thenReturn(grid);
+        Day03 day03 = new Day03("input_day03.txt", dataLoader);
+        String expectedTrees = "Trees encountered: " + 7;
         String actualTrees = day03.firstPart();
-        Assert.assertEquals(expectedTrees, actualTrees);
+        assertEquals(expectedTrees, actualTrees);
     }
 
-    // puzzle day03 part 2
-    // Test getProduct() with test data
-    @Test
-    public void testGetProduct() {
-        Day03 day03 = new Day03("day03_testdata.txt");
-        String expectedTrees = "Product of all slopes: " + 336;
-        String actualTrees = day03.secondPart();
-        Assert.assertEquals(expectedTrees, actualTrees);
-    }
-
-    // puzzle day03 part 2
-    // Test getProduct() with real data
+    // puzzle day03 part 2 Test getProduct()
     @Test
     public void testGetProduct_realData() {
-        Day03 day03 = new Day03("input_day03.txt");
-        String expectedTrees = "Product of all slopes: " + "6419669520";
+        when(dataLoader.getDataDay03(anyString(), anyString())).thenReturn(grid);
+        Day03 day03 = new Day03("input_day03.txt", dataLoader);
+        String expectedTrees = "Product of all slopes: " + "336";
         String actualTrees = day03.secondPart();
-        Assert.assertEquals(expectedTrees, actualTrees);
+        assertEquals(expectedTrees, actualTrees);
     }
 }
