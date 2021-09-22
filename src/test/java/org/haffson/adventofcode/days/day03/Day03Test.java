@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -29,8 +28,8 @@ public class Day03Test {
     // Test getDay()
     @Test
     public void testGetDay() {
-        when(dataLoader.getDataDay03(anyString(), anyString())).thenReturn(grid);
-        Day03 day03 = new Day03("input_day03.txt", dataLoader);
+        when(dataLoader.getDataDay03()).thenReturn(grid);
+        Day03 day03 = new Day03(dataLoader);
         int expectedDay = 3;
         int actualDay = day03.getDay();
         assertEquals(expectedDay, actualDay);
@@ -39,8 +38,8 @@ public class Day03Test {
     // Test getTestData()
     @Test
     public void testGetTestData() {
-        when(dataLoader.getDataDay03(anyString(), anyString())).thenReturn(grid);
-        Day03 day03 = new Day03("day03_testdata.txt", dataLoader);
+        when(dataLoader.getDataDay03()).thenReturn(grid);
+        Day03 day03 = new Day03(dataLoader);
         List<String> grid = day03.getGrid();
         String expectedSquare = ".";
         String actualSquare = Character.toString(grid.get(0).charAt(0));
@@ -50,8 +49,8 @@ public class Day03Test {
     // puzzle day03 part 1 Test getNumberTrees()
     @Test
     public void testGetNumberTreesRealData() {
-        when(dataLoader.getDataDay03(anyString(), anyString())).thenReturn(grid);
-        Day03 day03 = new Day03("input_day03.txt", dataLoader);
+        when(dataLoader.getDataDay03()).thenReturn(grid);
+        Day03 day03 = new Day03(dataLoader);
         String expectedTrees = "Trees encountered: " + 7;
         String actualTrees = day03.firstPart();
         assertEquals(expectedTrees, actualTrees);
@@ -60,8 +59,8 @@ public class Day03Test {
     // puzzle day03 part 2 Test getProduct()
     @Test
     public void testGetProduct_realData() {
-        when(dataLoader.getDataDay03(anyString(), anyString())).thenReturn(grid);
-        Day03 day03 = new Day03("input_day03.txt", dataLoader);
+        when(dataLoader.getDataDay03()).thenReturn(grid);
+        Day03 day03 = new Day03(dataLoader);
         String expectedTrees = "Product of all slopes: " + "336";
         String actualTrees = day03.secondPart();
         assertEquals(expectedTrees, actualTrees);

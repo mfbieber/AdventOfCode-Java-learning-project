@@ -4,9 +4,7 @@ import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
 import org.haffson.adventofcode.utils.DataLoader;
 import org.haffson.adventofcode.utils.ProblemStatus;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.lang.NonNull;
 
 import java.util.*;
 
@@ -19,9 +17,9 @@ public class Day04 implements Days {
     private final Map<Integer, ProblemStatusEnum> problemStatus;
     private final List<String> batchFile;
 
-    Day04(@Value("filename") String filename, DataLoader dataLoader) {
+    Day04(DataLoader dataLoader) {
         //get data
-        this.batchFile = dataLoader.getDataDay04("/day04/" + filename, "\n\n");
+        this.batchFile = dataLoader.getDataDay04();
         // set problemstatus
         this.problemStatus = ProblemStatus.getProblemStatusMap(1, 2,
                 ProblemStatusEnum.SOLVED, ProblemStatusEnum.SOLVED);

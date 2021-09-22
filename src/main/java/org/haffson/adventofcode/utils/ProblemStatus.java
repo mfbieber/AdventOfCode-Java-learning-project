@@ -8,7 +8,6 @@ import java.util.Map;
 public class ProblemStatus {
 
     private ProblemStatus() {
-        
     }
 
     public static Map<Integer, ProblemStatusEnum> getProblemStatusMap(int part1, int part2,

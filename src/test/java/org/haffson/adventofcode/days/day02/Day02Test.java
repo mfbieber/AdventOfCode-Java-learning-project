@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -25,8 +24,8 @@ public class Day02Test {
 
     @Test
     public void testGetDay() {
-        when(dataLoader.getDataDay02(anyString(), anyString())).thenReturn(passwordDatabase);
-        Day02 day02 = new Day02("input_day02.txt", dataLoader);
+        when(dataLoader.getDataDay02()).thenReturn(passwordDatabase);
+        Day02 day02 = new Day02(dataLoader);
         int expectedResult = 2;
         int actualResult = day02.getDay();
         assertThat(actualResult).isEqualTo(expectedResult);
@@ -36,8 +35,8 @@ public class Day02Test {
     @Test
     public void test_firstPart_returnsExpectedResult() {
         //arrange
-        when(dataLoader.getDataDay02(anyString(), anyString())).thenReturn(passwordDatabase);
-        Day02 day02 = new Day02("input_day02.txt", dataLoader);
+        when(dataLoader.getDataDay02()).thenReturn(passwordDatabase);
+        Day02 day02 = new Day02(dataLoader);
         String expectedResult = "Part 1 answer: " + 2;
         //act
         String actualResult = day02.firstPart();
@@ -49,8 +48,8 @@ public class Day02Test {
     @Test
     public void test_secondPart_returnsExpectedResult() {
         //arrange
-        when(dataLoader.getDataDay02(anyString(), anyString())).thenReturn(passwordDatabase);
-        Day02 day02 = new Day02("input_day02.txt", dataLoader);
+        when(dataLoader.getDataDay02()).thenReturn(passwordDatabase);
+        Day02 day02 = new Day02(dataLoader);
         String expectedResult = "Part 2 answer: " + 1;
         //act
         String actualResult = day02.secondPart();

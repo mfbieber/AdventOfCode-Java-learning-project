@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 
@@ -26,8 +24,8 @@ public class Day01Test {
 
     @Test
     public void test_getProblemStatus() {
-        when(dataLoader.getDataDay01(anyString(), eq("\n"))).thenReturn(testNumbers);
-        Day01 day01 = new Day01("input_day01.txt", dataLoader);
+        when(dataLoader.getDataDay01()).thenReturn(testNumbers);
+        Day01 day01 = new Day01(dataLoader);
         Map<Integer, ProblemStatusEnum> expectedResult = new HashMap<Integer, ProblemStatusEnum>() {{
             put(1, ProblemStatusEnum.SOLVED);
             put(2, ProblemStatusEnum.SOLVED);
@@ -38,8 +36,8 @@ public class Day01Test {
 
     @Test
     public void testGetDay() {
-        when(dataLoader.getDataDay01(anyString(), eq("\n"))).thenReturn(testNumbers);
-        Day01 day01 = new Day01("input_day01.txt", dataLoader);
+        when(dataLoader.getDataDay01()).thenReturn(testNumbers);
+        Day01 day01 = new Day01(dataLoader);
         int expectedResult = 1;
         int actualResult = day01.getDay();
         assertThat(actualResult).isEqualTo(expectedResult);
@@ -48,21 +46,21 @@ public class Day01Test {
     @Test
     public void test_rawDataNotEmpty() {
         //arrange
-        when(dataLoader.getDataDay01(anyString(), eq("\n"))).thenReturn(testNumbers);
-        Day01 day01 = new Day01("input_day01.txt", dataLoader);
+        when(dataLoader.getDataDay01()).thenReturn(testNumbers);
+        Day01 day01 = new Day01(dataLoader);
         int expectedSize = 6;
         //act
         List<Integer> actual = day01.getNumbers();
         //assert
-        verify(dataLoader, times(1)).getDataDay01(anyString(), anyString());
+        verify(dataLoader, times(1)).getDataDay01();
         assertThat(actual).hasSize(expectedSize);
     }
 
     @Test
     public void test_firstPart_returnsExpectedResult() {
         //arrange
-        when(dataLoader.getDataDay01(anyString(), eq("\n"))).thenReturn(testNumbers);
-        Day01 day01 = new Day01("input_day01.txt", dataLoader);
+        when(dataLoader.getDataDay01()).thenReturn(testNumbers);
+        Day01 day01 = new Day01(dataLoader);
         String expectedResult = "Product 1: " + 514579;
         //act
         String actualResult = day01.firstPart();
@@ -73,8 +71,8 @@ public class Day01Test {
     @Test
     public void test_secondPart_returnsExpectedResult() {
         //arrange
-        when(dataLoader.getDataDay01(anyString(), eq("\n"))).thenReturn(testNumbers);
-        Day01 day01 = new Day01("input_day01.txt", dataLoader);
+        when(dataLoader.getDataDay01()).thenReturn(testNumbers);
+        Day01 day01 = new Day01(dataLoader);
         String expectedResult = "Product 2: " + 241861950;
         //act
         String actualResult = day01.secondPart();
