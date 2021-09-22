@@ -5,7 +5,6 @@ import org.haffson.adventofcode.days.Days;
 import org.haffson.adventofcode.utils.CheckStringIsEmpty;
 import org.haffson.adventofcode.utils.DataLoader;
 import org.haffson.adventofcode.utils.ProblemStatus;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -20,9 +19,9 @@ public class Day05 implements Days {
     private final Map<Integer, ProblemStatusEnum> problemStatus;
     private final List<String> boardingPasses;
 
-    Day05(@Value("filename") String filename, DataLoader dataLoader) {
+    Day05(DataLoader dataLoader) {
         //get data
-        this.boardingPasses = dataLoader.getDataDay05("/day05/" + filename, "\n");
+        this.boardingPasses = dataLoader.getDataDay05();
         // set problemstatus
         this.problemStatus = ProblemStatus.getProblemStatusMap(1, 2,
                 ProblemStatusEnum.SOLVED, ProblemStatusEnum.SOLVED);

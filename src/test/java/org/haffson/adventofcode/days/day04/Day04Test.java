@@ -9,14 +9,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class Day04Test {
 
     DataLoader dataLoader = new DataLoader();
+    //@Matthias: """ multiline is also not available in java 8
     List<String> batchFilePart1 = new ArrayList<>(Arrays
             .asList("ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\n" +
                             "byr:1937 iyr:2017 cid:147 hgt:183cm\n" +
@@ -68,8 +67,8 @@ public class Day04Test {
     // test length of output of method
     @Test
     public void test_getRawDataArray2() {
-        when(dataLoader.getDataDay04(anyString(), eq("\n\n"))).thenReturn(batchFilePart1);
-        Day04 day04 = new Day04("day04_testdata.txt", dataLoader);
+        when(dataLoader.getDataDay04()).thenReturn(batchFilePart1);
+        Day04 day04 = new Day04(dataLoader);
         Integer expected = 4;
         Integer actual = day04.getBatchFile().size();
         assertThat(actual).isEqualTo(expected);
@@ -78,8 +77,8 @@ public class Day04Test {
     // puzzle 4.1 test number of valid passports of input data
     @Test
     public void test_getNumberValidPassports1() {
-        when(dataLoader.getDataDay04(anyString(), anyString())).thenReturn(batchFilePart1);
-        Day04 day04 = new Day04("input_day04.txt", dataLoader);
+        when(dataLoader.getDataDay04()).thenReturn(batchFilePart1);
+        Day04 day04 = new Day04(dataLoader);
         String expected = "Number of valid passports: " + 2;
         String actual = day04.firstPart();
         assertThat(actual).isEqualTo(expected);
@@ -88,8 +87,8 @@ public class Day04Test {
     // puzzle 4.2 test number of valid passports of input data (stricter rules)
     @Test
     public void test_getRestrictedNumberValidPassports() {
-        when(dataLoader.getDataDay04(anyString(), anyString())).thenReturn(batchFilePart2);
-        Day04 day04 = new Day04("input_day04.txt", dataLoader);
+        when(dataLoader.getDataDay04()).thenReturn(batchFilePart2);
+        Day04 day04 = new Day04(dataLoader);
         String expected = "Number of valid passports: " + 4;
         String actual = day04.secondPart();
         assertThat(actual).isEqualTo(expected);

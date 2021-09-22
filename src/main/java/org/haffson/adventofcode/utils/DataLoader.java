@@ -28,29 +28,29 @@ public class DataLoader {
         return rawData;
     }
 
-    public List<Integer> getDataDay01(@NonNull String path, @NonNull String delimiter) {
-        return getRawDataAsList(path, delimiter).stream()
+    public List<Integer> getDataDay01() {
+        return getRawDataAsList("/day01/input_day01.txt", "\n").stream()
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
 
-    public List<String> getDataDay02(@NonNull String path, @NonNull String delimiter) {
-        return getRawDataAsList(path, delimiter);
+    public List<String> getDataDay02() {
+        return getRawDataAsList("/day02/input_day02.txt", "\n");
     }
 
-    public List<String> getDataDay03(@NonNull String path, @NonNull String delimiter) {
-        return getRawDataAsList(path, delimiter);
+    public List<String> getDataDay03() {
+        return getRawDataAsList("/day03/input_day03.txt", "\n");
     }
 
-    public List<String> getDataDay04(@NonNull String path, @NonNull String delimiter) {
-        return getRawDataAsList(path, delimiter);
+    public List<String> getDataDay04() {
+        return getRawDataAsList("/day04/input_day04.txt", "\n\n");
     }
 
-    public List<String> getDataDay05(@NonNull String path, @NonNull String delimiter) {
-        return getRawDataAsList(path, delimiter);
+    public List<String> getDataDay05() {
+        return getRawDataAsList("/day05/input_day05.txt", "\n");
     }
 
-    public List<String> getDataDay06(@NonNull String path, @NonNull String delimiter) {
-        return getRawDataAsList(path, delimiter);
+    public List<String> getDataDay06() {
+        return getRawDataAsList("/day06/input_day06.txt", "\n");
     }
 }

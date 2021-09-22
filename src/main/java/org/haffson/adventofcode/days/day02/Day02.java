@@ -5,7 +5,6 @@ import org.haffson.adventofcode.days.Days;
 import org.haffson.adventofcode.utils.CheckStringIsEmpty;
 import org.haffson.adventofcode.utils.DataLoader;
 import org.haffson.adventofcode.utils.ProblemStatus;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -23,9 +22,9 @@ public class Day02 implements Days {
     private final Map<Integer, ProblemStatusEnum> problemStatus;
     private final List<String> passwordDatabase;
 
-    Day02(@Value("filename") String filename, DataLoader dataLoader) {
+    Day02(DataLoader dataLoader) {
         //get data
-        this.passwordDatabase = dataLoader.getDataDay02("/day02/" + filename, "\n");
+        this.passwordDatabase = dataLoader.getDataDay02();
         // set problemstatus
         this.problemStatus = ProblemStatus.getProblemStatusMap(1, 2,
                 ProblemStatusEnum.SOLVED, ProblemStatusEnum.SOLVED);
