@@ -53,9 +53,10 @@ public class Day01 implements Days {
         return "Product 2: " + calculateProduct_Part2(numbers);
     }
 
-
-    // utility method: subtract numbers by 2020
-    private List<Integer> getSubtractedBy2020(List<Integer> numbers) {
+    /**
+     * utility method: subtract numbers from 2020
+     */
+    private List<Integer> getSubtractedFrom2020(List<Integer> numbers) {
         return numbers.stream()
                 .map(value -> 2020 - value)
                 .collect(Collectors.toList());
@@ -69,7 +70,7 @@ public class Day01 implements Days {
      */
     private int calculateProduct_Part1(final List<Integer> numbers) {
         // check for intersection of two lists
-        numbers.retainAll(getSubtractedBy2020(numbers));
+        numbers.retainAll(getSubtractedFrom2020(numbers));
         // product of "intersected" values is the puzzle's answer!
         return numbers.get(0) * numbers.get(1);
     }
@@ -81,7 +82,7 @@ public class Day01 implements Days {
      * @return the product
      */
     private int calculateProduct_Part2(final List<Integer> numbers) {
-        List<Integer> numbersSubtractedBy2020 = getSubtractedBy2020(numbers);
+        List<Integer> numbersSubtractedBy2020 = getSubtractedFrom2020(numbers);
 
         List<Integer> tempData = new ArrayList<>();
         for (int k = 0; k < numbers.size(); k++) {
