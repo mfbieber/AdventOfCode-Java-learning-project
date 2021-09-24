@@ -13,7 +13,7 @@ public class CheckStringIsEmptyTest {
         String expectedResult = null;
         // Then
         assertThatIllegalArgumentException().isThrownBy(() -> CheckStringIsEmpty.requireNonNullAndNonEmpty(expectedResult))
-                .withMessage("The string is null or empty: " + expectedResult);
+                .withMessage("The string is null or empty.");
     }
 
     @Test
@@ -31,6 +31,6 @@ public class CheckStringIsEmptyTest {
         String expectedResult = "";
         // Then
         assertThatIllegalArgumentException().isThrownBy(() -> CheckStringIsEmpty.requireNonNullAndNonEmpty(expectedResult))
-                .withMessage("The string is null or empty: " + expectedResult);
+                .withMessage("The string is null or empty.");
     }
 }
