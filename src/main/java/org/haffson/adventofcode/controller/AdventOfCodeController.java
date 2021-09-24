@@ -53,7 +53,8 @@ public class AdventOfCodeController {
      * @return a HATEOAS-{@code Resource<>} with the corresponding solution
      */
     @GetMapping
-    public Resource getResultForASpecificDayAndPuzzlePart(@RequestParam(value = "day", defaultValue = "") String day, @RequestParam(value = "part", defaultValue = "") String part) {
+    public Resource getResultForASpecificDayAndPuzzlePart(@RequestParam(value = "day", defaultValue = "1") Integer day,
+                                                          @RequestParam(value = "part", defaultValue = "1") Integer part){
 
         logger.info("The results for day " + day + ", part " + part + " have been requested.");
 
@@ -81,4 +82,21 @@ public class AdventOfCodeController {
                 linkTo(methodOn(AdventOfCodeController.class).daysImplemented()).withSelfRel()
         );
     }
+
+        @GetMapping("/test")
+        public String test () {
+
+            logger.info("A list of implemented days has been requested.");
+
+            return "Hallo";
+        }
+
+    @GetMapping("/test11")
+    public String test11 () {
+
+        logger.info("A list of implemented days has been requested.");
+
+        return "Hallo11";
+    }
+
 }

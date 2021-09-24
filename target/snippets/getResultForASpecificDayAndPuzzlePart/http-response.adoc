@@ -1,11 +1,11 @@
 [source,http,options="nowrap"]
 ----
 HTTP/1.1 200 OK
-Content-Length: 160
 Content-Type: application/json;charset=UTF-8
+Content-Length: 147
 
 {
-  "content" : "Part 1 - Frequency: 599",
+  "content" : "Product 1: 326211",
   "_links" : {
     "self" : {
       "href" : "http://localhost:8080/api/adventOfCode?day=1&part=1"
