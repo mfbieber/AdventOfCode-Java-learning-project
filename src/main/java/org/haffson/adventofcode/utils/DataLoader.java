@@ -14,14 +14,16 @@ public class DataLoader {
     }
 
     private List<String> getRawDataAsList(@NonNull String path, @NonNull String delimiter) {
-        InputStream dataIn = Objects.requireNonNull(DataLoader.class.getResourceAsStream("/data"
-                        + CheckStringIsEmpty.requireNonNullAndNonEmpty(path)),
+        CheckStringIsEmpty.requireNonNullAndNonEmpty(path);
+        CheckStringIsEmpty.requireNonNullAndNonEmpty(delimiter);
+
+        InputStream dataIn = Objects.requireNonNull(DataLoader.class.getResourceAsStream("/data" + path),
                 "Data InputStream must not be null: " + path);
         List<String> rawData;
         try (Scanner scan = new Scanner(dataIn)) {
             rawData = new ArrayList<>();
             while (scan.hasNext()) {
-                scan.useDelimiter(CheckStringIsEmpty.requireNonNullAndNonEmpty(delimiter));
+                scan.useDelimiter(delimiter);
                 rawData.add(scan.next());
             }
         }
