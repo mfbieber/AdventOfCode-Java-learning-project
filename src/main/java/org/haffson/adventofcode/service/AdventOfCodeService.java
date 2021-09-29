@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,11 +32,10 @@ public class AdventOfCodeService {
      *
      * @param daysSolutions {@code @Autowired} days solutions
      */
-    @Autowired
+
     public AdventOfCodeService(List<Days> daysSolutions) {
         this.daysSolutions = Objects.requireNonNull(daysSolutions);
     }
-
     /**
      * Asks for the implementation for the requested day and then checks whether the requested part
      * has been solved yet. Then it requests the retrieved implementation to calculate the solution.
@@ -93,6 +94,21 @@ public class AdventOfCodeService {
      * @return a List of all implemented days
      */
     public List<Days> getDaysSolutions() {
+        // comparator + write test
+        //Comparator, nicht als map of integer, sort instances mit getDay()
+        DayComparator dayComparator = new DayComparator();
+        daysSolutions.sort(dayComparator);
+
         return daysSolutions;
     }
+
+    public static class DayComparator implements Comparator<Days> {
+
+        @Override
+        public int compare(Days day1, Days day2) {
+            return Integer.compare(day1.getDay(), day2.getDay());
+        }
+
+    }
+
 }
