@@ -8,8 +8,10 @@ import org.haffson.adventofcode.service.AdventOfCodeService;
 import org.haffson.adventofcode.archUnitTestingUtils.ClassesPredicates;
 import org.haffson.adventofcode.archUnitTestingUtils.FieldTypePredicate;
 import org.haffson.adventofcode.archUnitTestingUtils.FieldsCondition;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+//import org.junit.Test;
+//import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +24,9 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.theClass;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 
 
-@Category(ArchitectureUnitTest.class)
+@Tag("ArchitectureUnitTest")
+//@Tag("annotations")
+//@Tag("junit5")
 public class ArchitectureUnitTesting {
 
     private final JavaClasses allClasses = new ClassFileImporter()
@@ -37,17 +41,17 @@ public class ArchitectureUnitTesting {
                 .check(allClasses);
     }
 
-    @Test
-    public void theListWithTheImplementedDaysShouldOnlyBeHandledInAdventOfCodeService() {
-        noClasses().that().dontHaveSimpleName("AdventOfCodeService")
-                .should(FieldsCondition.haveFieldsThat(FieldTypePredicate.areOfType(List.class, Days.class)))
-                .because("we want only AdventOfCodeService to handle the access to the implementations of Days.")
-                .check(allClasses);
-        theClass(AdventOfCodeService.class)
-                .should(FieldsCondition.haveFieldsThat(FieldTypePredicate.areOfType(List.class, Days.class)))
-                .because("we want only AdventOfCodeService to handle the access to the implementations of Days.")
-                .check(allClasses);
-    }
+//    @Test
+//    public void theListWithTheImplementedDaysShouldOnlyBeHandledInAdventOfCodeService() {
+//        noClasses().that().dontHaveSimpleName("AdventOfCodeService")
+//                .should(FieldsCondition.haveFieldsThat(FieldTypePredicate.areOfType(List.class, Days.class)))
+//                .because("we want only AdventOfCodeService to handle the access to the implementations of Days.")
+//                .check(allClasses);
+//        theClass(AdventOfCodeService.class)
+//                .should(FieldsCondition.haveFieldsThat(FieldTypePredicate.areOfType(List.class, Days.class)))
+//                .because("we want only AdventOfCodeService to handle the access to the implementations of Days.")
+//                .check(allClasses);
+//    }
 
     @Test
     public void onlyControllersAreSupposedToDoRESTCommunication() {

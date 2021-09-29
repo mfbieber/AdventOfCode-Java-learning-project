@@ -6,7 +6,8 @@ import com.tngtech.archunit.library.GeneralCodingRules;
 import org.haffson.adventofcode.archUnitTestingUtils.MethodCondition;
 import org.haffson.adventofcode.archUnitTestingUtils.MethodParameterNumberPredicate;
 import org.haffson.adventofcode.archUnitTestingUtils.MethodTransformer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+//import org.junit.Test;
 
 import static com.tngtech.archunit.lang.conditions.ArchConditions.callMethod;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.no;

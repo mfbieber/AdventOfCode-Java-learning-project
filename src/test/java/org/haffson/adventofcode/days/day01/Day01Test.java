@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 
 public class Day01Test {
 
-    DataLoader dataLoader;
+    DataLoader dataLoader = new DataLoader();
     // @Matthias: I think this is Java 8 the command List.of() does not exist, yet.
     List<Integer> testNumbers = new ArrayList<>(Arrays.asList(1721, 979, 366, 299, 675, 1456));
 

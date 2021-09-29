@@ -4,6 +4,7 @@ import org.haffson.adventofcode.ProblemStatusEnum;
 import org.haffson.adventofcode.days.Days;
 import org.haffson.adventofcode.utils.DataLoader;
 import org.haffson.adventofcode.utils.ProblemStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class Day01 implements Days {
     /**
      * utility method: subtract numbers from 2020
      */
-    private List<Integer> getSubtractedFrom2020(List<Integer> numbers) {
+    private List<Integer> getSubtractedFrom2020(@NonNull List<Integer> numbers) {
         return numbers.stream()
                 .map(value -> 2020 - value)
                 .collect(Collectors.toList());
@@ -68,7 +69,7 @@ public class Day01 implements Days {
      *
      * @return the product
      */
-    private int calculateProduct_Part1(final List<Integer> numbers) {
+    private int calculateProduct_Part1(@NonNull final List<Integer> numbers) {
         // check for intersection of two lists
         numbers.retainAll(getSubtractedFrom2020(numbers));
         // product of "intersected" values is the puzzle's answer!
@@ -81,7 +82,7 @@ public class Day01 implements Days {
      *
      * @return the product
      */
-    private int calculateProduct_Part2(final List<Integer> numbers) {
+    private int calculateProduct_Part2(@NonNull final List<Integer> numbers) {
         List<Integer> numbersSubtractedBy2020 = getSubtractedFrom2020(numbers);
 
         List<Integer> tempData = new ArrayList<>();

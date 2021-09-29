@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 @Component
 public class DataLoader {
 
-    public DataLoader() {
-    }
+//    public DataLoader() {
+//    }
 
     private List<String> getRawDataAsList(@NonNull String path, @NonNull String delimiter) {
         CheckStringIsEmpty.requireNonNullAndNonEmpty(path);

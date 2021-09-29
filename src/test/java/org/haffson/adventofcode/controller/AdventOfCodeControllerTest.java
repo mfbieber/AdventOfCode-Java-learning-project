@@ -2,9 +2,11 @@ package org.haffson.adventofcode.controller;
 
 import org.haffson.adventofcode.days.Days;
 import org.haffson.adventofcode.service.AdventOfCodeService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+//import org.junit.Before;
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -29,7 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @WebMvcTest(AdventOfCodeController.class)
 @AutoConfigureRestDocs(outputDir = "target/snippets")
 public class AdventOfCodeControllerTest {
@@ -48,7 +50,7 @@ public class AdventOfCodeControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    @Before
+    @BeforeEach
     public void setup() {
         Mockito.when(adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(day1, part1))
                 .thenReturn(resultDay1Part1);
@@ -57,11 +59,11 @@ public class AdventOfCodeControllerTest {
     @Test
     public void testGetResultForASpecificDayAndPuzzlePart() throws Exception {
 
-        mvc.perform(get(baseUrl + "?day=" + day1 + "&part=" + part1)
+        mvc.perform(get(baseUrl + "/" + "?day=" + day1 + "&part=" + part1)
                 .contentType(contentType))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("content", is(resultDay1Part1)))
-                .andExpect(jsonPath("$._links.self.href", is("http://localhost:8080" + baseUrl + "?day=" + day1 + "&part=" + part1)))
+                .andExpect(jsonPath("day", is(1)))
+                .andExpect(jsonPath("$._links.self.href", is("http://localhost:8080" + baseUrl + "/" + "?day=" + day1 + "&part=" + part1)))
                 .andDo(document("getResultForASpecificDayAndPuzzlePart",
                         preprocessResponse(prettyPrint()),
                         responseFields(getResultForASpecificDayAndPuzzlePart("")))
@@ -108,7 +110,11 @@ public class AdventOfCodeControllerTest {
         } else pathString = path;
 
         ArrayList<FieldDescriptor> fieldDescriptorList = new ArrayList<>();
-        fieldDescriptorList.add(fieldWithPath(pathString + "content")
+        fieldDescriptorList.add(fieldWithPath(pathString + "day")
+                .description("Result of the Puzzle for a specific day and part of the AdventOfCode calendar"));
+        fieldDescriptorList.add(fieldWithPath(pathString + "part")
+                .description("Result of the Puzzle for a specific day and part of the AdventOfCode calendar"));
+        fieldDescriptorList.add(fieldWithPath(pathString + "answer")
                 .description("Result of the Puzzle for a specific day and part of the AdventOfCode calendar"));
         fieldDescriptorList.add(fieldWithPath(pathString + "_links.self.href")
                 .description("Self link to the query for the specific solution for a day and part"));

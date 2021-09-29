@@ -58,7 +58,6 @@ public class Day05 implements Days {
                 rowOrCol = numMax;
             }
         }
-        System.out.println(rowOrCol);
         return rowOrCol;
     }
 
