@@ -3,11 +3,11 @@
 
 |`+day+`
 |`+Number+`
-|Result of the Puzzle for a specific day and part of the AdventOfCode calendar
+|Specific day of the puzzle of the AdventOfCode calendar
 
 |`+part+`
 |`+Number+`
-|Result of the Puzzle for a specific day and part of the AdventOfCode calendar
+|Specific day's part of the puzzle of the AdventOfCode calendar
 
 |`+answer+`
 |`+String+`

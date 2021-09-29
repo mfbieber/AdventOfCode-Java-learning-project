@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -23,7 +22,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AdventOfCodeServiceTest {
 
     private final List<Days> daysSolutions = new LinkedList<>();
-    private HashMap<Integer, ProblemStatusEnum> problemStatus = new HashMap<>();
+
+    private final HashMap<Integer, ProblemStatusEnum> problemStatus = new HashMap<>();
 
     private AdventOfCodeService adventOfCodeService;
 
@@ -35,27 +35,16 @@ public class AdventOfCodeServiceTest {
 
         Day02 day02 = Mockito.mock(Day02.class);
         Day03 day03 = Mockito.mock(Day03.class);
-
-//        problemStatus.put(1, ProblemStatusEnum.SOLVED);
-//        problemStatus.put(2, ProblemStatusEnum.UNSOLVED);
-
         daysSolutions.add(day02);
         daysSolutions.add(day03);
-
         daysSolutions.add(day01);
-
-
         Mockito.when(day01.getDay()).thenReturn(1);
-
         Mockito.when(day02.getDay()).thenReturn(2);
         Mockito.when(day03.getDay()).thenReturn(3);
-
 
         Mockito.when(day01.getProblemStatus()).thenReturn(problemStatus);
         Mockito.when(day01.firstPart()).thenReturn("Product 1: " + 326211);
         adventOfCodeService = new AdventOfCodeService(daysSolutions);
-
-
     }
 
     @Test
@@ -85,23 +74,13 @@ public class AdventOfCodeServiceTest {
         });
     }
 
-
     @Test
-    public void getSortedListOfDaysSolution() throws Exception {
-//        List<Days> expectedResult = daysSolutions;
-//        List<Days> expectedResult = new LinkedList<>();
-        List<Integer> expectedResult = Arrays.asList(1,2,3);
-
-//        Integer[] expectedResult = 2;
-//        List<Days> actualResult = adventOfCodeService.getDaysSolutions().get(0).getDay();
-//        int[] actualResult = new int[3];
+    public void getSortedListOfDaysSolution() {
+        List<Integer> expectedResult = Arrays.asList(1, 2, 3);
         final List<Integer> actualResult = adventOfCodeService.getDaysSolutions().stream()
                 .map(Days::getDay)
                 .collect(Collectors.toList());
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }
-
-    ;
-
 }
