@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 public class Day03Test {
 
     DataLoader dataLoader = new DataLoader();
-    List<String> grid = new ArrayList<>(Arrays.asList("..##.......", "#...#...#..", ".#....#..#.",
+    List<String> grid = new ArrayList<>(List.of("..##.......", "#...#...#..", ".#....#..#.",
             "..#.#...#.#", ".#...##..#.", "..#.##.....", ".#.#.#....#", ".#........#",
             "#.##...#...", "#...##....#", ".#..#...#.#"));
 

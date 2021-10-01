@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 public class Day02Test {
 
     DataLoader dataLoader = new DataLoader();
-    List<String> passwordDatabase = new ArrayList<>(Arrays.asList("1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"));
+    List<String> passwordDatabase = new ArrayList<>(List.of("1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"));
 
     @BeforeEach
     void setup() {

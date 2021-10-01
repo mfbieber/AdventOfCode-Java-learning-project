@@ -18,8 +18,9 @@ public class ProblemStatus {
     ) {
         final Map<Integer, ProblemStatusEnum> problemStatus = new HashMap<>();
 
-        problemStatus.put(part1, status1);
-        problemStatus.put(part2, status2);
-        return problemStatus;
+        return Map.of(
+                part1, status1,
+                part2, status2
+        );
     }
 }

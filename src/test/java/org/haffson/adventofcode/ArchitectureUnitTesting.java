@@ -3,6 +3,7 @@ package org.haffson.adventofcode;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
+import jdk.jfr.Category;
 import org.haffson.adventofcode.days.Days;
 import org.haffson.adventofcode.service.AdventOfCodeService;
 import org.haffson.adventofcode.archUnitTestingUtils.ClassesPredicates;
@@ -24,9 +25,8 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.theClass;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 
 
+//@Category(ArchitectureUnitTest.class)
 @Tag("ArchitectureUnitTest")
-//@Tag("annotations")
-//@Tag("junit5")
 public class ArchitectureUnitTesting {
 
     private final JavaClasses allClasses = new ClassFileImporter()

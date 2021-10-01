@@ -56,7 +56,7 @@ public class Day04 implements Days {
     public int getNumberValidPassports(final List<String> batchFile) {
         int numberOfValidPassports = 0;
         for (String passport : batchFile) {
-            Set<String> validKeys = new HashSet<>(Arrays.asList("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"));
+            Set<String> validKeys = new HashSet<>(List.of("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"));
             String[] splitPassport = passport.split("[\\s+]");
             for (String field : splitPassport) {
                 String[] parts = field.split(":");
@@ -76,7 +76,7 @@ public class Day04 implements Days {
         for (String passport : batchFile) {
             int count = 0;
             Map<String, String> passports = new HashMap<>();
-            Set<String> validKeys = new HashSet<>(Arrays.asList("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"));
+            Set<String> validKeys = new HashSet<>(List.of("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"));
             String[] splitPassport = passport.split("[\\s+]");
             for (String field : splitPassport) {
                 String[] parts = field.split(":");
@@ -125,7 +125,7 @@ public class Day04 implements Days {
                 }
                 // check eye color
                 String eyeColor = passports.get("ecl");
-                List<String> colors = Arrays.asList("amb", "blu", "brn", "gry", "grn", "hzl", "oth");
+                List<String> colors = List.of("amb", "blu", "brn", "gry", "grn", "hzl", "oth");
                 if (colors.contains(eyeColor)) {
                     count++;
                 }

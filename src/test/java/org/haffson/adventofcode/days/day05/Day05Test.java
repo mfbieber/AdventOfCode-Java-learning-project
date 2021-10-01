@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 public class Day05Test {
 
     DataLoader dataLoader = new DataLoader();
-    List<String> boardingPassesPart1 = new ArrayList<>(Arrays.asList("BFFFBBFRRR", "FFFBBBFRRR", "BBFFBBFRLL"));
+    List<String> boardingPassesPart1 = new ArrayList<>(List.of("BFFFBBFRRR", "FFFBBBFRRR", "BBFFBBFRLL"));
     List<String> boardingPassesPart2 = new DataLoader().getDataDay05();
 
     @BeforeEach

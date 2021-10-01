@@ -94,7 +94,7 @@ public class AdventOfCodeService {
      * @return a sorted (by day!) List of all implemented days
      */
     public List<Days> getDaysSolutions() {
-        DayComparator dayComparator = new DayComparator();
+        Comparator<Days> dayComparator = new DayComparator();
         daysSolutions.sort(dayComparator);
         return daysSolutions;
     }
