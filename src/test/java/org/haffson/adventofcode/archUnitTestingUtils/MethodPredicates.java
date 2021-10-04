@@ -2,29 +2,10 @@ package org.haffson.adventofcode.archUnitTestingUtils;
 
 import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaClass;
-import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.domain.JavaMethod;
 import com.tngtech.archunit.core.domain.JavaModifier;
-import com.tngtech.archunit.lang.AbstractClassesTransformer;
 
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-public class MethodTransformer extends AbstractClassesTransformer<JavaMethod> {
-    public MethodTransformer() {
-        super("methods");
-    }
-
-    /**
-     * Factory method that can be imported statically to get more readable rule chains.
-     * e.g.:
-     * no(methods()).that(...).should(...)
-     *
-     * @return The method transformer.
-     */
-    public static MethodTransformer methods() {
-        return new MethodTransformer();
-    }
+public class MethodPredicates {
 
     /**
      * A predicate that handles a {@link JavaMethod}
@@ -35,7 +16,7 @@ public class MethodTransformer extends AbstractClassesTransformer<JavaMethod> {
         return new DescribedPredicate<JavaMethod>("is a " + className) {
             @Override
             public boolean apply(JavaMethod input) {
-                JavaClass declaringClass = MethodTransformer.getDeclaringClass(input);
+                JavaClass declaringClass = MethodPredicates.getDeclaringClass(input);
                 return declaringClass.getSimpleName().toLowerCase().contains(className);
             }
         };
@@ -61,10 +42,4 @@ public class MethodTransformer extends AbstractClassesTransformer<JavaMethod> {
 //    private static Class<String> rawReturnType(Class<String> stringClass) {
 //        return stringClass;
 //    }
-
-    public Iterable<JavaMethod> doTransform(final JavaClasses classes) {
-        return StreamSupport.stream(classes.spliterator(), false)
-                .flatMap(javaClass -> javaClass.getMethods().stream())
-                .collect(Collectors.toList());
-    }
 }
