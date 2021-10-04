@@ -65,6 +65,10 @@ public class MethodTransformer extends AbstractClassesTransformer<JavaMethod> {
         return returnType(String.class);
     }
 
+//    private static Class<String> rawReturnType(Class<String> stringClass) {
+//        return stringClass;
+//    }
+
     public Iterable<JavaMethod> doTransform(final JavaClasses classes) {
         return StreamSupport.stream(classes.spliterator(), false)
                 .flatMap(javaClass -> javaClass.getMethods().stream())
