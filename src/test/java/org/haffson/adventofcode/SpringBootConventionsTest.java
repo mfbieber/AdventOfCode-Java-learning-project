@@ -26,7 +26,7 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 public class SpringBootConventionsTest {
 
     private final JavaClasses allClasses = new ClassFileImporter()
-            .withImportOption(new ImportOption.DontIncludeTests())
+            .withImportOption(new ImportOption.DoNotIncludeTests())
             .importPackages("org.haffson.adventofcode");
 
     /**

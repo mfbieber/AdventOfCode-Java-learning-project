@@ -17,7 +17,7 @@ public class ArchUnitRulesFromPlantUML {
     URL myDiagram = getClass().getClassLoader().getResource("adventOfCodeArchitecture.puml");
 
     private final JavaClasses allClasses = new ClassFileImporter()
-            .withImportOption(new ImportOption.DontIncludeTests())
+            .withImportOption(new ImportOption.DoNotIncludeTests())
             .importPackages("org.haffson.adventofcode");
 
     @Test

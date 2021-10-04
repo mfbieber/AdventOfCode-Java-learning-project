@@ -5,13 +5,10 @@ import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.domain.JavaMethod;
 import com.tngtech.archunit.core.domain.JavaModifier;
-import com.tngtech.archunit.core.domain.properties.HasReturnType;
 import com.tngtech.archunit.lang.AbstractClassesTransformer;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import static com.tngtech.archunit.core.domain.properties.HasReturnType.Predicates.returnType;
 
 public class MethodTransformer extends AbstractClassesTransformer<JavaMethod> {
     public MethodTransformer() {
@@ -59,10 +56,6 @@ public class MethodTransformer extends AbstractClassesTransformer<JavaMethod> {
             declaringClass = declaringClass.getEnclosingClass().get();
         }
         return declaringClass;
-    }
-
-    public static DescribedPredicate<HasReturnType> string() {
-        return returnType(String.class);
     }
 
 //    private static Class<String> rawReturnType(Class<String> stringClass) {

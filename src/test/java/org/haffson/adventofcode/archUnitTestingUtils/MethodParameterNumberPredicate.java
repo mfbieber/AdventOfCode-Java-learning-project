@@ -24,6 +24,6 @@ public class MethodParameterNumberPredicate extends DescribedPredicate<JavaMetho
 
     @Override
     public boolean apply(JavaMethod method) {
-        return method.getParameters().size() > allowedNumberOfParameters;
+        return method.getParameterTypes().size() > allowedNumberOfParameters;
     }
 }

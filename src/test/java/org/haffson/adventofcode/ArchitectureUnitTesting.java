@@ -30,7 +30,7 @@ import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 public class ArchitectureUnitTesting {
 
     private final JavaClasses allClasses = new ClassFileImporter()
-            .withImportOption(new ImportOption.DontIncludeTests())
+            .withImportOption(new ImportOption.DoNotIncludeTests())
             .importPackages("org.haffson.adventofcode");
 
     @Test
@@ -43,7 +43,7 @@ public class ArchitectureUnitTesting {
 
     @Test
     public void theListWithTheImplementedDaysShouldOnlyBeHandledInAdventOfCodeService() {
-        noClasses().that().dontHaveSimpleName("AdventOfCodeService")
+        noClasses().that().doNotHaveSimpleName("AdventOfCodeService")
                 .should(FieldsCondition.haveFieldsThat(FieldTypePredicate.areOfType(List.class, Days.class)))
                 .because("we want only AdventOfCodeService to handle the access to the implementations of Days.")
                 .check(allClasses);
