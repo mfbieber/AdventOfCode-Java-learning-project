@@ -41,17 +41,17 @@ public class ArchitectureUnitTesting {
                 .check(allClasses);
     }
 
-//    @Test
-//    public void theListWithTheImplementedDaysShouldOnlyBeHandledInAdventOfCodeService() {
-//        noClasses().that().dontHaveSimpleName("AdventOfCodeService")
-//                .should(FieldsCondition.haveFieldsThat(FieldTypePredicate.areOfType(List.class, Days.class)))
-//                .because("we want only AdventOfCodeService to handle the access to the implementations of Days.")
-//                .check(allClasses);
-//        theClass(AdventOfCodeService.class)
-//                .should(FieldsCondition.haveFieldsThat(FieldTypePredicate.areOfType(List.class, Days.class)))
-//                .because("we want only AdventOfCodeService to handle the access to the implementations of Days.")
-//                .check(allClasses);
-//    }
+    @Test
+    public void theListWithTheImplementedDaysShouldOnlyBeHandledInAdventOfCodeService() {
+        noClasses().that().dontHaveSimpleName("AdventOfCodeService")
+                .should(FieldsCondition.haveFieldsThat(FieldTypePredicate.areOfType(List.class, Days.class)))
+                .because("we want only AdventOfCodeService to handle the access to the implementations of Days.")
+                .check(allClasses);
+        theClass(AdventOfCodeService.class)
+                .should(FieldsCondition.haveFieldsThat(FieldTypePredicate.areOfType(List.class, Days.class)))
+                .because("we want only AdventOfCodeService to handle the access to the implementations of Days.")
+                .check(allClasses);
+    }
 
     @Test
     public void onlyControllersAreSupposedToDoRESTCommunication() {

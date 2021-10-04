@@ -104,6 +104,7 @@ public class AdventOfCodeService {
      */
     @Component
     public static class DayComparator implements Comparator<Days> {
+
         @Override
         public int compare(Days day1, Days day2) {
             return Integer.compare(day1.getDay(), day2.getDay());
