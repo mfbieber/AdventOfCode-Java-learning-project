@@ -23,7 +23,8 @@ public class ArchUnitRulesFromPlantUML {
     @Test
     public void classesShouldAdhereToPlantUmlDiagram() {
         classes().should(adhereToPlantUmlDiagram(myDiagram, consideringOnlyDependenciesInDiagram()))
-                .check(allClasses);;
+                .check(allClasses);
+        ;
     }
 
 }

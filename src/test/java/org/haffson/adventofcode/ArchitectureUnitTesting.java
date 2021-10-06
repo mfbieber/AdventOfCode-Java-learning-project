@@ -3,14 +3,8 @@ package org.haffson.adventofcode;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
-import jdk.jfr.Category;
-import org.haffson.adventofcode.days.Days;
-import org.haffson.adventofcode.service.AdventOfCodeService;
 import org.haffson.adventofcode.archUnitTestingUtils.ClassesPredicates;
-import org.haffson.adventofcode.archUnitTestingUtils.FieldTypePredicate;
-import org.haffson.adventofcode.archUnitTestingUtils.FieldsCondition;
-//import org.junit.Test;
-//import org.junit.experimental.categories.Category;
+import org.haffson.adventofcode.days.Days;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Component;
@@ -21,11 +15,11 @@ import java.util.List;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.implement;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.theClass;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
+import static org.haffson.adventofcode.archUnitTestingUtils.FieldTypePredicate.areOfType;
+import static org.haffson.adventofcode.archUnitTestingUtils.FieldsCondition.haveFieldsThat;
 
 
-//@Category(ArchitectureUnitTest.class)
 @Tag("ArchitectureUnitTest")
 public class ArchitectureUnitTesting {
 
@@ -44,11 +38,11 @@ public class ArchitectureUnitTesting {
     @Test
     public void theListWithTheImplementedDaysShouldOnlyBeHandledInAdventOfCodeService() {
         noClasses().that().doNotHaveSimpleName("AdventOfCodeService")
-                .should(FieldsCondition.haveFieldsThat(FieldTypePredicate.areOfType(List.class, Days.class)))
+                .should(haveFieldsThat(areOfType(List.class, Days.class)))
                 .because("we want only AdventOfCodeService to handle the access to the implementations of Days.")
                 .check(allClasses);
-        theClass(AdventOfCodeService.class)
-                .should(FieldsCondition.haveFieldsThat(FieldTypePredicate.areOfType(List.class, Days.class)))
+        classes().that().haveSimpleName("AdventOfCodeService")
+                .should(haveFieldsThat(areOfType(List.class, Days.class)))
                 .because("we want only AdventOfCodeService to handle the access to the implementations of Days.")
                 .check(allClasses);
     }

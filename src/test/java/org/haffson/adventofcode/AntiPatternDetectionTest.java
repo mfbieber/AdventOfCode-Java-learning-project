@@ -11,7 +11,6 @@ import static com.tngtech.archunit.lang.conditions.ArchConditions.callMethod;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noMethods;
 
-//import org.junit.Test;
 
 public class AntiPatternDetectionTest {
 
@@ -39,4 +38,5 @@ public class AntiPatternDetectionTest {
                 .because("methods with too many parameters are hard to understand and complicated to test. Consider refactoring, e.g. splitting functionality or introducing Parameter Objects.")
                 .check(allClasses);
     }
+
 }
