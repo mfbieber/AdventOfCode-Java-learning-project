@@ -5,13 +5,13 @@ import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.library.GeneralCodingRules;
 import org.haffson.adventofcode.archUnitTestingUtils.MethodCondition;
 import org.haffson.adventofcode.archUnitTestingUtils.MethodParameterNumberPredicate;
-import org.haffson.adventofcode.archUnitTestingUtils.MethodTransformer;
 import org.junit.jupiter.api.Test;
-//import org.junit.Test;
 
 import static com.tngtech.archunit.lang.conditions.ArchConditions.callMethod;
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.no;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noMethods;
+
+//import org.junit.Test;
 
 public class AntiPatternDetectionTest {
 
@@ -34,7 +34,7 @@ public class AntiPatternDetectionTest {
 
     @Test
     public void doNotUseTooManyMethodParameters() {
-        no(MethodTransformer.methods())
+        noMethods()
                 .should(MethodCondition.have(MethodParameterNumberPredicate.moreParametersThan(4)))
                 .because("methods with too many parameters are hard to understand and complicated to test. Consider refactoring, e.g. splitting functionality or introducing Parameter Objects.")
                 .check(allClasses);
