@@ -94,10 +94,10 @@ public class AdventOfCodeController {
         String answer = adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(day, part);
         Link link = linkTo(methodOn(AdventOfCodeController.class).getResultForASpecificDayAndPuzzlePart(day, part)).withSelfRel();
         DayModel dayModel = new DayModel(day, part, answer);
-
         return EntityModel.of(dayModel, link);
-
     }
+
+
 
     /**
      * Returns a HATEOAS {@code CollectionModel<>} with an integer list of all days that have been implemented

@@ -70,10 +70,12 @@ public class Day01 implements Days {
      * @return the product
      */
     private int calculateProduct_Part1(@NonNull final List<Integer> numbers) {
+        List<Integer> listOfNumbers_part1 = new ArrayList<>(numbers);
+
         // check for intersection of two lists
-        numbers.retainAll(getSubtractedFrom2020(numbers));
+        listOfNumbers_part1.retainAll(getSubtractedFrom2020(numbers));
         // product of "intersected" values is the puzzle's answer!
-        return numbers.get(0) * numbers.get(1);
+        return listOfNumbers_part1.get(0) * listOfNumbers_part1.get(1);
     }
 
     /**
@@ -83,12 +85,14 @@ public class Day01 implements Days {
      * @return the product
      */
     private int calculateProduct_Part2(@NonNull final List<Integer> numbers) {
-        List<Integer> numbersSubtractedBy2020 = getSubtractedFrom2020(numbers);
+        List<Integer> listOfNumbers_part2 = new ArrayList<>(numbers);
+
+        List<Integer> numbersSubtractedBy2020 = getSubtractedFrom2020(listOfNumbers_part2);
 
         List<Integer> tempData = new ArrayList<>();
-        for (int k = 0; k < numbers.size(); k++) {
-            for (Integer datum : numbers) {
-                tempData.add(numbers.get(k) + datum);
+        for (int k = 0; k < listOfNumbers_part2.size(); k++) {
+            for (Integer datum : listOfNumbers_part2) {
+                tempData.add(listOfNumbers_part2.get(k) + datum);
             }
         }
         // check for intersection of two lists

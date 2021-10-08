@@ -2,11 +2,11 @@
 ----
 {
   "day" : 1,
-  "part" : 1,
-  "answer" : "Product 1: 326211",
+  "part" : 2,
+  "answer" : null,
   "_links" : {
     "self" : {
-      "href" : "http://localhost:8080/api/adventOfCode/?day=1&part=1"
+      "href" : "http://localhost:8080/api/adventOfCode/?day=1&part=2"
     }
   }
 }

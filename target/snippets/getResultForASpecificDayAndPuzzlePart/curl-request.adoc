@@ -1,5 +1,5 @@
 [source,bash]
 ----
-$ curl 'http://localhost:8080/api/adventOfCode/?day=1&part=1' -i -X GET \
+$ curl 'http://localhost:8080/api/adventOfCode/?day=1&part=2' -i -X GET \
     -H 'Content-Type: application/hal+json;charset=UTF-8'
 ----

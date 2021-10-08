@@ -10,7 +10,7 @@
 |Specific day's part of the puzzle of the AdventOfCode calendar
 
 |`+answer+`
-|`+String+`
+|`+Null+`
 |Result of the Puzzle for a specific day and part of the AdventOfCode calendar
 
 |`+_links.self.href+`

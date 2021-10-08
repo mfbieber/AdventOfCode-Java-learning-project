@@ -34,7 +34,7 @@ class PuzzleCard extends Component {
         </Typography>
         <Typography className={classes.pos} color="textSecondary" />
         <Typography component="p">
-          <p>{this.props.result}</p>
+          {this.props.result}
         </Typography>
       </div>
     );

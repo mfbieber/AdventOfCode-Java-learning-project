@@ -42,7 +42,9 @@ public class AdventOfCodeControllerTest {
 
     private Integer day1 = 1;
     private Integer part1 = 1;
+    private Integer part2 = 2;
     private String resultDay1Part1 = "Product 1: " + 326211;
+    private String resultDay1Part2 = "Product 2: " + 326211;
 
     @Autowired
     private MockMvc mvc;
@@ -75,6 +77,22 @@ public class AdventOfCodeControllerTest {
                 .andExpect(jsonPath("part", is(1)))
                 .andExpect(jsonPath("answer", is("Product 1: " + 326211)))
                 .andExpect(jsonPath("$._links.self.href", is("http://localhost:8080" + baseUrl + "/" + "?day=" + day1 + "&part=" + part1)))
+                .andDo(document("getResultForASpecificDayAndPuzzlePart",
+                        preprocessResponse(prettyPrint()),
+                        responseFields(getResultForASpecificDayAndPuzzlePart("")))
+                );
+
+    }
+
+    @Test
+    public void testGetResultForASpecificDayAndPuzzlePart2() throws Exception {
+        mvc.perform(get(baseUrl + "/" + "?day=" + day1 + "&part=" + part2)
+                .contentType(contentType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("day", is(1)))
+                .andExpect(jsonPath("part", is(2)))
+//                .andExpect(jsonPath("answer", is("Product 1: " + 326211)))
+                .andExpect(jsonPath("$._links.self.href", is("http://localhost:8080" + baseUrl + "/" + "?day=" + day1 + "&part=" + part2)))
                 .andDo(document("getResultForASpecificDayAndPuzzlePart",
                         preprocessResponse(prettyPrint()),
                         responseFields(getResultForASpecificDayAndPuzzlePart("")))

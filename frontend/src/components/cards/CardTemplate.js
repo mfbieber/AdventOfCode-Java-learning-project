@@ -37,7 +37,7 @@ const styles = {
 function renderAddNewCardActions(cardType, classes, callController) {
   if (cardType === "newCard") {
     return (
-      <CardActions className={classes.actions} disableActionSpacing>
+      <CardActions className={classes.actions} disableactionspacing="true">
         <IconButton onClick={callController}>
           <FloatingActionButtons />
         </IconButton>
@@ -111,7 +111,7 @@ class CardTemplate extends Component {
     );
     try {
       const data = await response.json();
-      const content = data.content;
+      const content = data.answer;
       const message = data.message;
       if (response.ok) {
         this.props.callback({
