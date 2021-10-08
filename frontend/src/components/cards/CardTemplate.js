@@ -107,7 +107,7 @@ class CardTemplate extends Component {
   async callController() {
     this.setState({ loading: true });
     const response = await fetch(
-      "/api/adventOfCode?day=" + this.state.day + "&part=" + this.state.value
+      "/api/adventOfCode/?day=" + this.state.day + "&part=" + this.state.value
     );
     try {
       const data = await response.json();
