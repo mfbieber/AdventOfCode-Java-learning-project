@@ -58,8 +58,8 @@ bootJar {
 group 'org.haffson'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 16
-targetCompatibility = 16
+sourceCompatibility = 15
+targetCompatibility = 15
 
 ext {
     snippetsDir = file('target/snippets')
