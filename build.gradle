@@ -36,7 +36,8 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: "com.moowork.node"
 
 node {
-    version = '14.18.0'
+//    version = '14.18.0'
+    version = '10.14.1'
     download = true
     // Set the work directory for unpacking node
     workDir = file("${project.buildDir}/nodejs")
