@@ -11,10 +11,10 @@ public class ProblemStatus {
     }
 
     public static Map<Integer, ProblemStatusEnum> getProblemStatusMap(
-            int part1,
-            int part2,
-            ProblemStatusEnum status1,
-            ProblemStatusEnum status2
+            final int part1,
+            final int part2,
+            final ProblemStatusEnum status1,
+            final ProblemStatusEnum status2
     ) {
         final Map<Integer, ProblemStatusEnum> problemStatus = new HashMap<>();
 

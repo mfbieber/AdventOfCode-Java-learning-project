@@ -32,7 +32,7 @@ public class AdventOfCodeService {
      * @param daysSolutions {@code @Autowired} days solutions
      */
 
-    public AdventOfCodeService(List<Days> daysSolutions) {
+    public AdventOfCodeService(final List<Days> daysSolutions) {
         this.daysSolutions = Objects.requireNonNull(daysSolutions);
     }
 
@@ -45,13 +45,13 @@ public class AdventOfCodeService {
      * @return a {@code String} with the result for the puzzle, or in case it has not been implemented,
      * an {@link PuzzleNotSolvedYetException} is thrown.
      */
-    public String getResultsForASpecificDayAndPuzzlePart(@NonNull Integer day, @NonNull Integer part) {
+    public String getResultsForASpecificDayAndPuzzlePart(@NonNull final Integer day, @NonNull final Integer part) {
 
         Objects.requireNonNull(day, "day is null");
         Objects.requireNonNull(part, "part is null");
 
 
-        Days thisDaysClass = findDayForDay(day);
+        final Days thisDaysClass = findDayForDay(day);
         if (!isProblemSolvedForPart(thisDaysClass, part)) {
             throw new PuzzleNotSolvedYetException(new Throwable());
         } else if (Objects.equals(part, 1)) {
@@ -70,7 +70,7 @@ public class AdventOfCodeService {
      * @param part          the part to check for it's solution status
      * @return if the part has been solved for a specific day
      */
-    private boolean isProblemSolvedForPart(Days thisDaysClass, Integer part) {
+    private boolean isProblemSolvedForPart(final Days thisDaysClass, final Integer part) {
         return thisDaysClass.getProblemStatus().containsKey(part) && thisDaysClass.getProblemStatus().get(part) == ProblemStatusEnum.SOLVED;
     }
 
@@ -81,7 +81,7 @@ public class AdventOfCodeService {
      * @param day the day for which an implementation should be retrieved
      * @return the {@code Day} implementation for the requested day
      */
-    private Days findDayForDay(int day) {
+    private Days findDayForDay(final int day) {
         return daysSolutions.stream()
                 .filter(solution -> solution.getDay() == day)
                 .findFirst()
@@ -94,7 +94,7 @@ public class AdventOfCodeService {
      * @return a sorted (by day!) List of all implemented days
      */
     public List<Days> getDaysSolutions() {
-        Comparator<Days> dayComparator = new DayComparator();
+        final Comparator<Days> dayComparator = new DayComparator();
         daysSolutions.sort(dayComparator);
         return daysSolutions;
     }
@@ -106,7 +106,7 @@ public class AdventOfCodeService {
     public static class DayComparator implements Comparator<Days> {
 
         @Override
-        public int compare(Days day1, Days day2) {
+        public int compare(final Days day1, final Days day2) {
             return Integer.compare(day1.getDay(), day2.getDay());
         }
     }

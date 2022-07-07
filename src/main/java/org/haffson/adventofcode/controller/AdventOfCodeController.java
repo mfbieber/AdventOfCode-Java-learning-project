@@ -44,7 +44,7 @@ public class AdventOfCodeController {
      *
      * @param adventOfCodeService {@code @Autowired} adventOfCodeService
      */
-    public AdventOfCodeController(AdventOfCodeService adventOfCodeService) {
+    public AdventOfCodeController(final AdventOfCodeService adventOfCodeService) {
         this.adventOfCodeService = adventOfCodeService;
     }
 
@@ -57,7 +57,7 @@ public class AdventOfCodeController {
         private final Integer part;
         private final String answer;
 
-        public DayModel(Integer day, Integer part, String answer) {
+        public DayModel(final Integer day, final Integer part, final String answer) {
             this.day = day;
             this.part = part;
             this.answer = answer;
@@ -86,18 +86,16 @@ public class AdventOfCodeController {
      * @return a HATEOAS-{@code EntityModel<>} with the corresponding solution
      */
     @GetMapping(value = "/")
-    public EntityModel<DayModel> getResultForASpecificDayAndPuzzlePart(@RequestParam(value = "day", defaultValue = "1") Integer day,
-                                                                       @RequestParam(value = "part", defaultValue = "1") Integer part) {
+    public EntityModel<DayModel> getResultForASpecificDayAndPuzzlePart(@RequestParam(value = "day", defaultValue = "1") final Integer day,
+                                                                       @RequestParam(value = "part", defaultValue = "1") final Integer part) {
 
         logger.info("The results for day {}, part {} have been requested.", day, part);
 
-        String answer = adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(day, part);
-        Link link = linkTo(methodOn(AdventOfCodeController.class).getResultForASpecificDayAndPuzzlePart(day, part)).withSelfRel();
-        DayModel dayModel = new DayModel(day, part, answer);
+        final String answer = adventOfCodeService.getResultsForASpecificDayAndPuzzlePart(day, part);
+        final Link link = linkTo(methodOn(AdventOfCodeController.class).getResultForASpecificDayAndPuzzlePart(day, part)).withSelfRel();
+        final DayModel dayModel = new DayModel(day, part, answer);
         return EntityModel.of(dayModel, link);
     }
-
-
 
     /**
      * Returns a HATEOAS {@code CollectionModel<>} with an integer list of all days that have been implemented
@@ -109,10 +107,10 @@ public class AdventOfCodeController {
 
         logger.info("A list of implemented days (sorted) has been requested.");
 
-        List<Integer> daysImplemented = adventOfCodeService.getDaysSolutions().stream()
+        final List<Integer> daysImplemented = adventOfCodeService.getDaysSolutions().stream()
                 .map(Days::getDay)
                 .collect(Collectors.toList());
-        Link link = linkTo(methodOn(AdventOfCodeController.class).daysImplemented()).withSelfRel();
+        final Link link = linkTo(methodOn(AdventOfCodeController.class).daysImplemented()).withSelfRel();
 
         return CollectionModel.of(daysImplemented, link);
     }
